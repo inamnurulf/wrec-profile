@@ -2,10 +2,14 @@ import Section from "./atoms/Section";
 
 export default function Team() {
   const members = [
-    { name: "Muhamad Khoiru Zaki, Ph.D", role: "Chief Planning Officer" },
     {
-      name: "Prof. Sigit Supadmo Hanggar Ganara Mawandha, Ph.D",
-      role: "Chief Executive Officer",
+      name: "Prof. Sigit Supadmo Hanggar",
+      role: "Advisor",
+    },
+    { name: "Muhamad Khoiru Zaki, Ph.D", role: "Head of Climate Resources Division" },
+    {
+      name: "Ganara Mawandha, Ph.D",
+      role: "Head of Water Resources Division",
     },
     {
       name: "Yunita Nur Azizah, S.T.P",
