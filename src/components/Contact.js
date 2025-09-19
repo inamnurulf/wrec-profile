@@ -9,14 +9,14 @@ export default function Contact() {
           <Mail className="h-5 w-5 text-emerald-700" />
           <span>wrecc@ugm.mail.ac.id</span>
         </a>
-        <a href="tel:+62821221212121" className="flex items-center gap-3 rounded-2xl border border-slate-200 bg-white p-6 shadow-sm hover:shadow-md">
+        <div className="flex items-center gap-3 rounded-2xl border border-slate-200 bg-white p-6 shadow-sm hover:shadow-md">
           <Phone className="h-5 w-5 text-emerald-700" />
-          <span>+62 8212 2121 2121</span>
-        </a>
-        <a href="https://wrecc.tp.ugm.ac.id" className="flex items-center gap-3 rounded-2xl border border-slate-200 bg-white p-6 shadow-sm hover:shadow-md">
+          <span>+62 8817412516</span>
+        </div>
+        <div className="flex items-center gap-3 rounded-2xl border border-slate-200 bg-white p-6 shadow-sm hover:shadow-md">
           <Globe className="h-5 w-5 text-emerald-700" />
           <span>wrecc.tp.ugm.ac.id</span>
-        </a>
+        </div>
       </div>
     </Section>
   );
