@@ -3,12 +3,12 @@ import Section from "./atoms/Section";
 export default function Team() {
   const members = [
     {
-      name: "Prof. Sigit Supadmo Hanggar",
+      name: "Prof. Sigit Supadmo ",
       role: "Advisor",
     },
     { name: "Muhamad Khoiru Zaki, Ph.D", role: "Head of Climate Resources Division" },
     {
-      name: "Ganara Mawandha, Ph.D",
+      name: "Hanggar Ganara Mawandha, Ph.D",
       role: "Head of Water Resources Division",
     },
     {
