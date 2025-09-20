@@ -1,4 +1,5 @@
 import Container from "./atoms/Container";
+import Link from "next/link";
 
 export default function Header() {
   return (
@@ -6,21 +7,45 @@ export default function Header() {
       <Container>
         <div className="flex h-14 items-center justify-between">
           <a href="#" className="flex items-center gap-2">
-            <div className="grid h-8 w-8 place-items-center rounded-xl bg-emerald-600 text-white font-bold">W</div>
+            <div className="grid h-8 w-8 place-items-center rounded-xl bg-emerald-600 text-white font-bold">
+              W
+            </div>
             <div className="leading-tight">
               <p className="text-sm font-semibold">WRECC</p>
-              <p className="text-xs text-slate-500">Data, Innovation & Resilience</p>
+              <p className="text-xs text-slate-500">
+                Data, Innovation & Resilience
+              </p>
             </div>
           </a>
           <nav className="hidden gap-6 text-sm font-medium text-slate-700 sm:flex">
-            <a href="#about" className="hover:text-emerald-700">About</a>
-            <a href="#vision" className="hover:text-emerald-700">Vision</a>
-            <a href="#scope" className="hover:text-emerald-700">Research</a>
-            <a href="#milestones" className="hover:text-emerald-700">Milestones</a>
-            <a href="#team" className="hover:text-emerald-700">Team</a>
-            <a href="#contact" className="hover:text-emerald-700">Contact</a>
+            <Link href="/#about" className="hover:text-emerald-700">
+              About
+            </Link>
+            <Link href="/#vision" className="hover:text-emerald-700">
+              Vision
+            </Link>
+            <Link href="/#scope" className="hover:text-emerald-700">
+              Research
+            </Link>
+            <Link href="/#milestones" className="hover:text-emerald-700">
+              Milestones
+            </Link>
+            <Link href="/#team" className="hover:text-emerald-700">
+              Team
+            </Link>
+            <Link href="/#contact" className="hover:text-emerald-700">
+              Contact
+            </Link>
+            <Link href="/articles" className="hover:text-emerald-700">
+              Articles
+            </Link>
           </nav>
-          <a href="#contact" className="rounded-xl bg-emerald-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-emerald-700">Get in touch</a>
+          <a
+            href="#contact"
+            className="rounded-xl bg-emerald-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-emerald-700"
+          >
+            Get in touch
+          </a>
         </div>
       </Container>
     </header>
