@@ -1,3 +1,4 @@
+// services/public.api.js
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 export const publicApi = createApi({
@@ -33,11 +34,9 @@ export const publicApi = createApi({
         const s = map[sort] ?? map.newest;
         u.searchParams.set("sort", s.field);
         u.searchParams.set("order", s.order);
-
-        if (page) u.searchParams.set("page", String(page));
-        if (limit) u.searchParams.set("limit", String(limit));
+        u.searchParams.set("page", String(page));
+        u.searchParams.set("limit", String(limit));
         if (slug) u.searchParams.set("slug", slug);
-
         return u.pathname + u.search;
       },
       providesTags: (result) =>
@@ -49,6 +48,32 @@ export const publicApi = createApi({
           : [{ type: "Articles", id: "LIST" }],
     }),
 
+    getArticleBySlug: builder.query({
+      query: (slug) => {
+        const u = new URL("/v1/articles", process.env.NEXT_PUBLIC_API_BASE_URL);
+        u.searchParams.set("status", "published");
+        u.searchParams.set("slug", slug);
+        u.searchParams.set("limit", "1");
+        return u.pathname + u.search;
+      },
+      transformResponse: (resp) => resp?.data?.items?.[0] ?? null,
+      providesTags: (a) => (a ? [{ type: "Article", id: a.id }] : []),
+    }),
+
+    listRelated: builder.query({
+      query: ({ tag_ids = [], exclude_id, limit = 4 }) => {
+        const u = new URL("/v1/articles", process.env.NEXT_PUBLIC_API_BASE_URL);
+        u.searchParams.set("status", "published");
+        u.searchParams.set("sort", "published_at");
+        u.searchParams.set("order", "desc");
+        u.searchParams.set("page", "1");
+        u.searchParams.set("limit", String(limit + 1)); 
+        tag_ids.forEach((id) => u.searchParams.append("tag_id", String(id)));
+        return u.pathname + u.search;
+      },
+      providesTags: [{ type: "Articles", id: "RELATED" }],
+    }),
+
     getTags: builder.query({
       query: () => "/tags",
       providesTags: [{ type: "Tags", id: "LIST" }],
@@ -56,4 +81,9 @@ export const publicApi = createApi({
   }),
 });
 
-export const { useListArticlesQuery, useGetTagsQuery } = publicApi;
+export const {
+  useListArticlesQuery,
+  useGetArticleBySlugQuery,
+  useListRelatedQuery,
+  useGetTagsQuery,
+} = publicApi;
