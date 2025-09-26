@@ -2,6 +2,18 @@ import { ArrowRight, Bookmark, CalendarDays, User } from "lucide-react";
 import classNames from "@/helper/className";
 import slugify from "@/helper/slugify";
 
+
+  const toLocalDate = (iso) => {
+    if (!iso) return "";
+    const d = new Date(iso);
+    const pad = (n) => n.toString().padStart(2, "0");
+    const yyyy = d.getFullYear();
+    const mm = pad(d.getMonth() + 1);
+    const dd = pad(d.getDate());
+    return `${yyyy}-${mm}-${dd}`;
+  };
+
+
 export default function ArticleCard({ a, compact = false }) {
   const slug = slugify(a.title);
   return (
@@ -18,9 +30,9 @@ export default function ArticleCard({ a, compact = false }) {
       <div className={classNames("p-4 sm:p-5", compact ? "" : "")}
       >
         <div className="flex flex-wrap items-center gap-2 text-xs text-slate-500">
-          <span className="inline-flex items-center gap-1"><CalendarDays className="h-3.5 w-3.5" />{a.date}</span>
+          <span className="inline-flex items-center gap-1"><CalendarDays className="h-3.5 w-3.5" />{toLocalDate(a.published_at)}</span>
           <span>•</span>
-          <span className="inline-flex items-center gap-2"><User className="h-3.5 w-3.5" />{a.author.name}</span>
+          <span className="inline-flex items-center gap-2"><User className="h-3.5 w-3.5" />{a.author?.name}</span>
         </div>
         <h3 className="mt-2 line-clamp-2 text-lg font-semibold leading-snug text-slate-900">
           {a.title}
