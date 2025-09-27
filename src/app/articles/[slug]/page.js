@@ -135,6 +135,7 @@ export default function ArticleDetailPage() {
     );
   }
   if (!article) return null;
+  console.log("this is the article :", article);  
 
   return (
     <div className="relative">
@@ -252,7 +253,7 @@ export default function ArticleDetailPage() {
                     />
                   ),
                   p: ({ node, ...props }) => (
-                    <p className="text-gray-700 leading-8 mb-4" {...props} />
+                    <div className="text-gray-700 leading-8 mb-4" {...props} />
                   ),
                   ul: ({ node, ...props }) => (
                     <ul

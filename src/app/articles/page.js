@@ -73,7 +73,6 @@ export default function ArticlesFrontPage() {
   });
 
   const articles = articlesResp?.data?.items ?? [];
-  console.log("this is the articles :", articles)
   const meta = articlesResp
     ? {
         page: articlesResp.data.page,
