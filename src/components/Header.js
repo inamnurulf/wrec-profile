@@ -60,6 +60,13 @@ export default function Header() {
       >
         Articles
       </Link>
+      <Link
+        href="/database"
+        onClick={onClick}
+        className="hover:text-emerald-700"
+      >
+        Database
+      </Link>
     </>
   );
 

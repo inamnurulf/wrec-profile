@@ -167,7 +167,7 @@ export default function ArticlesFrontPage() {
   const skeletonCount = ui.view === "list" ? Math.min(ui.limit, 6) : Math.min(ui.limit, 9);
 
   return (
-    <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
+    <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8 min-h-[80vh]">
       {/* Featured */}
       {isLoading ? (
         <FeaturedSkeleton />
