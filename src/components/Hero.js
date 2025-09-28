@@ -38,7 +38,7 @@ export default function Hero() {
             <div className="aspect-[4/3] w-full rounded-2xl border border-slate-200 bg-white p-4 shadow-sm">
               <div className="grid h-full place-items-center rounded-xl bg-gradient-to-br from-emerald-100 to-slate-100">
                 <img
-                  src="/hero-image.jpg"
+                  src="/hero-image.webp"
                   alt="Hero Image"
                   className="h-full rounded-lg object-cover"
                 />
