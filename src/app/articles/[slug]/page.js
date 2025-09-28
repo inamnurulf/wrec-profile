@@ -133,7 +133,6 @@ export default function ArticleDetailPage() {
     );
   }
   if (!article) return null;
-  console.log("this is the article :", article);  
 
   return (
     <div className="relative">

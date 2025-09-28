@@ -222,8 +222,6 @@ export default function PublicFilesFrontPage() {
     page: ui.page,
     limit: ui.limit,
   });
-  console.log("UI State:", ui);
-  console.log("API Data:", data);
 
   const items = data?.data?.items ?? [];
   const meta = data
