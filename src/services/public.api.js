@@ -11,7 +11,8 @@ const toHero = (a) => {
 const toTagNames = (tags) => {
   if (!tags) return [];
   // API may return [{id,name}, ...] or ["name", ...]
-  if (Array.isArray(tags) && typeof tags[0] === "object") return tags.map((t) => t.name);
+  if (Array.isArray(tags) && typeof tags[0] === "object")
+    return tags.map((t) => t.name);
   return tags;
 };
 
@@ -21,6 +22,19 @@ const mapArticle = (a) => ({
   tags: toTagNames(a.tags),
   excerpt: a.summary ?? a.excerpt ?? "", // your ArticleCard reads `excerpt` optionally
 });
+
+const mapPublicFile = (f) => ({
+  id: f.id,
+  slug: f.slug,
+  title: f.title,
+  description: f.description ?? "",
+  drive_link: f.drive_link ?? "",
+  is_published: !!f.is_published,
+  metadata: f.metadata ?? {},
+  created_at: f.created_at ?? f.createdAt ?? null,
+  updated_at: f.updated_at ?? f.updatedAt ?? null,
+});
+
 
 export const publicApi = createApi({
   reducerPath: "publicApi",
@@ -34,17 +48,27 @@ export const publicApi = createApi({
       /**
        * params: { q?, tag_ids?: number[], category_id?, sort?: "newest"|"oldest"|"az", page?, limit?, slug? }
        */
-      query: ({ q, tag_ids, category_id, sort = "newest", page = 1, limit = 12, slug }) => {
+      query: ({
+        q,
+        tag_ids,
+        category_id,
+        sort = "newest",
+        page = 1,
+        limit = 12,
+        slug,
+      }) => {
         const u = new URL("/v1/articles", process.env.NEXT_PUBLIC_API_BASE_URL);
         if (q) u.searchParams.set("q", q);
         if (category_id) u.searchParams.set("category_id", String(category_id));
-        (tag_ids ?? []).forEach((id) => u.searchParams.append("tag_id", String(id)));
+        (tag_ids ?? []).forEach((id) =>
+          u.searchParams.append("tag_id", String(id))
+        );
         u.searchParams.set("status", "published");
 
         const map = {
           newest: { field: "published_at", order: "desc" },
           oldest: { field: "published_at", order: "asc" },
-          az:     { field: "title",        order: "asc" },
+          az: { field: "title", order: "asc" },
         };
         const s = map[sort] ?? map.newest;
         u.searchParams.set("sort", s.field);
@@ -63,7 +87,10 @@ export const publicApi = createApi({
       providesTags: (result) =>
         result
           ? [
-              ...(result.data?.items ?? []).map((a) => ({ type: "Article", id: a.id })),
+              ...(result.data?.items ?? []).map((a) => ({
+                type: "Article",
+                id: a.id,
+              })),
               { type: "Articles", id: "LIST" },
             ]
           : [{ type: "Articles", id: "LIST" }],
@@ -99,7 +126,9 @@ export const publicApi = createApi({
       transformResponse: (resp, _m, arg) => {
         const raw = resp?.data?.items ?? [];
         const mapped = raw.map(mapArticle);
-        return mapped.filter((x) => x.id !== arg.exclude_id).slice(0, arg.limit ?? 4);
+        return mapped
+          .filter((x) => x.id !== arg.exclude_id)
+          .slice(0, arg.limit ?? 4);
       },
       providesTags: [{ type: "Articles", id: "RELATED" }],
     }),
@@ -108,9 +137,57 @@ export const publicApi = createApi({
       query: () => "/tags",
       transformResponse: (resp) => {
         const items = Array.isArray(resp?.data) ? resp.data : resp ?? [];
-        return { data: items.map((t) => (typeof t === "string" ? { id: t, name: t } : t)) };
+        return {
+          data: items.map((t) =>
+            typeof t === "string" ? { id: t, name: t } : t
+          ),
+        };
       },
       providesTags: [{ type: "Tags", id: "LIST" }],
+    }),
+    listPublicFiles: builder.query({
+      /**
+       * params: { q?, sort? = "created_desc"|"created_asc"|"title_asc"|"title_desc", page?, limit? }
+       * Always fetches only published files for public FE
+       */
+      query: ({ q, sort = "created_desc", page = 1, limit = 12 }) => {
+        const u = new URL(
+          "/v1/public-files",
+          process.env.NEXT_PUBLIC_API_BASE_URL
+        );
+        if (q) u.searchParams.set("q", q);
+        // enforce only published on public FE
+        u.searchParams.set("is_published", "true");
+
+        const map = {
+          created_desc: { field: "created_at", order: "desc" },
+          created_asc: { field: "created_at", order: "asc" },
+          title_asc: { field: "title", order: "asc" },
+          title_desc: { field: "title", order: "desc" },
+        };
+        const s = map[sort] ?? map.created_desc;
+        u.searchParams.set("sort", s.field);
+        u.searchParams.set("order", s.order);
+        u.searchParams.set("page", String(page));
+        u.searchParams.set("limit", String(limit));
+
+        return u.pathname + u.search;
+      },
+      transformResponse: (resp) => {
+        const root = resp?.data ?? resp ?? {};
+        const items = (root.items ?? []).map(mapPublicFile);
+        return { data: { ...root, items } };
+      },
+      providesTags: (result) =>
+        result
+          ? [
+              ...(result.data?.items ?? []).map((f) => ({
+                type: "PublicFiles",
+                id: f.id,
+              })),
+              { type: "PublicFiles", id: "LIST" },
+            ]
+          : [{ type: "PublicFiles", id: "LIST" }],
     }),
   }),
 });
@@ -120,4 +197,5 @@ export const {
   useGetArticleBySlugQuery,
   useListRelatedQuery,
   useGetTagsQuery,
+  useListPublicFilesQuery,
 } = publicApi;
