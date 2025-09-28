@@ -40,6 +40,77 @@ const fmtID = (iso) =>
       )
     : "";
 
+/** ---------- Skeleton toolkit ---------- */
+function Skeleton({ className = "" }) {
+  return (
+    <div
+      className={classNames(
+        "animate-pulse rounded-md bg-slate-200/70 dark:bg-slate-700/50",
+        className
+      )}
+    />
+  );
+}
+function SkeletonLine({ w = "w-full", h = "h-4", className = "" }) {
+  return <Skeleton className={classNames(w, h, className)} />;
+}
+function TagChipSkeleton() {
+  return <Skeleton className="h-6 w-20 rounded-full" />;
+}
+function FeaturedSkeleton() {
+  return (
+    <section className="relative mb-10 overflow-hidden rounded-3xl border bg-slate-900">
+      <div className="relative grid gap-6 p-6 sm:grid-cols-2 sm:p-10">
+        <div className="text-white">
+          <div className="mb-3 flex flex-wrap gap-2">
+            <TagChipSkeleton />
+            <TagChipSkeleton />
+            <TagChipSkeleton />
+          </div>
+          <SkeletonLine w="w-4/5" h="h-8" className="mb-2 bg-slate-600/50" />
+          <SkeletonLine w="w-3/5" h="h-8" className="bg-slate-600/50" />
+          <div className="mt-4 space-y-2">
+            <SkeletonLine w="w-5/6" className="bg-slate-600/40" />
+            <SkeletonLine w="w-2/3" className="bg-slate-600/40" />
+          </div>
+          <Skeleton className="mt-6 h-9 w-40 rounded-full bg-emerald-500/40" />
+        </div>
+      </div>
+    </section>
+  );
+}
+function ArticleCardSkeleton({ compact = false }) {
+  if (compact) {
+    return (
+      <div className="grid grid-cols-[96px,1fr] gap-3 rounded-2xl border bg-white p-3 shadow-sm">
+        <Skeleton className="h-24 w-24 rounded-xl" />
+        <div className="space-y-2">
+          <SkeletonLine w="w-3/4" />
+          <SkeletonLine w="w-1/2" />
+          <div className="flex gap-2 pt-1">
+            <TagChipSkeleton />
+            <TagChipSkeleton />
+          </div>
+        </div>
+      </div>
+    );
+  }
+  return (
+    <div className="overflow-hidden rounded-2xl border bg-white shadow-sm">
+      <Skeleton className="h-40 w-full" />
+      <div className="space-y-2 p-4">
+        <SkeletonLine w="w-4/5" />
+        <SkeletonLine w="w-2/3" />
+        <div className="flex gap-2 pt-1">
+          <TagChipSkeleton />
+          <TagChipSkeleton />
+        </div>
+      </div>
+    </div>
+  );
+}
+/** ---------- End skeleton toolkit ---------- */
+
 export default function ArticlesFrontPage() {
   const dispatch = useAppDispatch();
   const ui = useAppSelector((s) => s.articlesUI);
@@ -65,8 +136,7 @@ export default function ArticlesFrontPage() {
     isError,
   } = useListArticlesQuery({
     q: ui.q || undefined,
-    tag_ids, // <— numeric IDs for backend
-    // category_id: ui.category_id, // if you have category filtering
+    tag_ids,
     sort: ui.sort, // "newest" | "oldest" | "az"
     page: ui.page,
     limit: ui.limit,
@@ -93,71 +163,78 @@ export default function ArticlesFrontPage() {
   // First item from server-sorted list
   const featured = articles[0];
 
+  // Decide how many skeleton cards to show while loading
+  const skeletonCount = ui.view === "list" ? Math.min(ui.limit, 6) : Math.min(ui.limit, 9);
+
   return (
     <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
       {/* Featured */}
-      {featured && (
-        <section className="relative mb-10 overflow-hidden rounded-3xl border bg-slate-900 text-white">
-          <div className="absolute inset-0">
-            {featured.hero && (
-              <Image
-                src={featured.hero}
-                alt={featured.title}
-                fill
-                className="object-cover opacity-50"
-                sizes="(max-width: 1024px) 100vw, 1024px"
-                priority
-              />
-            )}
-            <div className="absolute inset-0 bg-gradient-to-t from-slate-900/70 via-slate-900/40 to-transparent" />
-          </div>
-          <div className="relative grid gap-6 p-6 sm:grid-cols-2 sm:p-10">
-            <div>
-              <div className="mb-3 flex flex-wrap gap-2">
-                {(featured.tags ?? []).slice(0, 3).map((t) => (
-                  <span
-                    key={t}
-                    className="rounded-full bg-white/10 px-3 py-1 text-xs backdrop-blur"
-                  >
-                    {t.name}
-                  </span>
-                ))}
-              </div>
-              <h1 className="text-2xl font-extrabold sm:text-3xl md:text-4xl">
-                {featured.title}
-              </h1>
-              {featured.summary && (
-                <p className="mt-3 max-w-2xl text-sm text-slate-200 sm:text-base">
-                  {featured.summary}
-                </p>
+      {isLoading ? (
+        <FeaturedSkeleton />
+      ) : (
+        featured && (
+          <section className="relative mb-10 overflow-hidden rounded-3xl border bg-slate-900 text-white">
+            <div className="absolute inset-0">
+              {featured.hero && (
+                <Image
+                  src={featured.hero}
+                  alt={featured.title}
+                  fill
+                  className="object-cover opacity-50"
+                  sizes="(max-width: 1024px) 100vw, 1024px"
+                  priority
+                />
               )}
-              <div className="mt-4 flex flex-wrap items-center gap-3 text-xs text-slate-200/90">
-                {featured.published_at && (
-                  <>
-                    <span className="inline-flex items-center gap-1">
-                      <CalendarDays className="h-4 w-4" />
-                      {fmtID(featured.published_at)}
-                    </span>
-                    <span>•</span>
-                  </>
-                )}
-                {featured.author?.name && (
-                  <span className="inline-flex items-center gap-2">
-                    <User className="h-4 w-4" />
-                    {featured.author.name}
-                    {featured.author.role ? ` · ${featured.author.role}` : ""}
-                  </span>
-                )}
-              </div>
-              <a
-                href={`/articles/${featured.slug}`}
-                className="mt-6 inline-flex items-center gap-2 rounded-full bg-emerald-400 px-4 py-2 font-medium text-slate-900 hover:bg-emerald-300"
-              >
-                Baca unggulan <ArrowRight className="h-4 w-4" />
-              </a>
+              <div className="absolute inset-0 bg-gradient-to-t from-slate-900/70 via-slate-900/40 to-transparent" />
             </div>
-          </div>
-        </section>
+            <div className="relative grid gap-6 p-6 sm:grid-cols-2 sm:p-10">
+              <div>
+                <div className="mb-3 flex flex-wrap gap-2">
+                  {(featured.tags ?? []).slice(0, 3).map((t) => (
+                    <span
+                      key={t}
+                      className="rounded-full bg-white/10 px-3 py-1 text-xs backdrop-blur"
+                    >
+                      {t.name}
+                    </span>
+                  ))}
+                </div>
+                <h1 className="text-2xl font-extrabold sm:text-3xl md:text-4xl">
+                  {featured.title}
+                </h1>
+                {featured.summary && (
+                  <p className="mt-3 max-w-2xl text-sm text-slate-200 sm:text-base">
+                    {featured.summary}
+                  </p>
+                )}
+                <div className="mt-4 flex flex-wrap items-center gap-3 text-xs text-slate-200/90">
+                  {featured.published_at && (
+                    <>
+                      <span className="inline-flex items-center gap-1">
+                        <CalendarDays className="h-4 w-4" />
+                        {fmtID(featured.published_at)}
+                      </span>
+                      <span>•</span>
+                    </>
+                  )}
+                  {featured.author?.name && (
+                    <span className="inline-flex items-center gap-2">
+                      <User className="h-4 w-4" />
+                      {featured.author.name}
+                      {featured.author.role ? ` · ${featured.author.role}` : ""}
+                    </span>
+                  )}
+                </div>
+                <a
+                  href={`/articles/${featured.slug}`}
+                  className="mt-6 inline-flex items-center gap-2 rounded-full bg-emerald-400 px-4 py-2 font-medium text-slate-900 hover:bg-emerald-300"
+                >
+                  Baca unggulan <ArrowRight className="h-4 w-4" />
+                </a>
+              </div>
+            </div>
+          </section>
+        )
       )}
 
       {/* Toolbar */}
@@ -261,20 +338,20 @@ export default function ArticlesFrontPage() {
 
       {/* Tags Filter */}
       <section className="mb-6 flex flex-wrap items-center gap-2">
-        {tagsLoading ? (
-          <span className="text-xs text-slate-500">Loading tags…</span>
-        ) : (
-          allTags.map((t) => (
-            <Badge
-              key={t}
-              active={ui.tags.includes(t)}
-              onClick={() => dispatch(toggleTag(t))}
-            >
-              {t}
-            </Badge>
-          ))
-        )}
-        {ui.tags.length > 0 && (
+        {tagsLoading
+          ? Array.from({ length: 10 }).map((_, i) => (
+              <TagChipSkeleton key={i} />
+            ))
+          : allTags.map((t) => (
+              <Badge
+                key={t}
+                active={ui.tags.includes(t)}
+                onClick={() => dispatch(toggleTag(t))}
+              >
+                {t}
+              </Badge>
+            ))}
+        {!tagsLoading && ui.tags.length > 0 && (
           <button
             onClick={() => dispatch(clearTags())}
             className="inline-flex items-center gap-1 rounded-full bg-slate-100 px-3 py-1 text-xs text-slate-700"
@@ -287,11 +364,13 @@ export default function ArticlesFrontPage() {
       {/* Result Count */}
       <div className="mb-4 text-sm text-slate-600">
         {isLoading ? (
-          "Memuat artikel…"
+          <div className="flex items-center gap-2">
+            <SkeletonLine w="w-40" />
+            <SkeletonLine w="w-24" />
+          </div>
         ) : (
           <>
-            Menampilkan <span className="font-semibold">{meta.total}</span>{" "}
-            artikel
+            Menampilkan <span className="font-semibold">{meta.total}</span> artikel
             {ui.tags.length ? (
               <>
                 {" "}
@@ -320,7 +399,21 @@ export default function ArticlesFrontPage() {
       </div>
 
       {/* List */}
-      {!isLoading &&
+      {isLoading ? (
+        ui.view === "grid" ? (
+          <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
+            {Array.from({ length: skeletonCount }).map((_, i) => (
+              <ArticleCardSkeleton key={i} />
+            ))}
+          </div>
+        ) : (
+          <div className="grid grid-cols-1 gap-4">
+            {Array.from({ length: skeletonCount }).map((_, i) => (
+              <ArticleCardSkeleton key={i} compact />
+            ))}
+          </div>
+        )
+      ) : (
         !isError &&
         (ui.view === "grid" ? (
           <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
@@ -334,7 +427,8 @@ export default function ArticlesFrontPage() {
               <ArticleCard key={a.id} a={a} compact />
             ))}
           </div>
-        ))}
+        ))
+      )}
 
       {/* Empty State */}
       {!isLoading && !isError && articles.length === 0 && (
@@ -358,7 +452,7 @@ export default function ArticlesFrontPage() {
       )}
 
       {/* Pagination */}
-      {meta.pages > 1 && (
+      {!isLoading && meta.pages > 1 && (
         <div className="mt-8">
           <Pagination
             page={meta.page}
@@ -367,10 +461,6 @@ export default function ArticlesFrontPage() {
           />
         </div>
       )}
-
-      <p className="mt-10 text-center text-xs text-slate-500">
-        * Artikel ditayangkan dari API WRECC (via proxy + RTK Query cache).
-      </p>
     </div>
   );
 }

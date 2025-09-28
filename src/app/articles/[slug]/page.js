@@ -5,14 +5,12 @@ import {
   Clock,
   Tag as TagIcon,
   User,
-  Bookmark,
-  MessageSquare,
   ChevronRight,
   Eye,
-  Link,
 } from "lucide-react";
 import ReactMarkdown from "react-markdown";
 import { useParams, useRouter } from "next/navigation";
+import Link from "next/link";
 
 import RelatedItemCard from "@/components/atoms/RelatedItemCard";
 import ShareButtons from "@/components/atoms/ShareButton";
