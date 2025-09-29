@@ -148,15 +148,6 @@ function FileCard({ f, compact = false }) {
           <span>Diperbarui {fmtID(f.updated_at) || "—"}</span>
           <div className="flex items-center gap-2">
             <a
-              href={f.drive_link}
-              target="_blank"
-              rel="noreferrer"
-              className="inline-flex items-center gap-1 rounded-lg border border-slate-200 px-2 py-1 hover:bg-slate-50"
-              title="Buka di Drive"
-            >
-              <Globe size={14} /> Open
-            </a>
-            <a
               href={getDownloadLink(f.drive_link)}
               target="_blank"
               rel="noreferrer"
@@ -187,15 +178,6 @@ function FileCard({ f, compact = false }) {
       <div className="mt-4 flex items-center justify-between text-xs text-slate-500">
         <span>Diperbarui {fmtID(f.updated_at) || "—"}</span>
         <div className="flex items-center gap-2">
-          <a
-            href={f.drive_link}
-            target="_blank"
-            rel="noreferrer"
-            className="inline-flex items-center gap-1 rounded-lg border border-slate-200 px-2 py-1 hover:bg-slate-50"
-            title="Buka di Drive"
-          >
-            <Globe size={14} /> Open
-          </a>
           <a
             href={getDownloadLink(f.drive_link)}
             target="_blank"
