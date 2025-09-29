@@ -20,6 +20,7 @@ import {
   useListRelatedQuery,
   useGetTagsQuery,
 } from "@/services/public.api";
+import ArticlePdfButton from "../helper/handleDownloadPDF";
 
 function useReadingProgress() {
   const [progress, setProgress] = useState(0);
@@ -62,6 +63,7 @@ export default function ArticleDetailPage() {
   const progress = useReadingProgress();
   const router = useRouter();
   const { slug } = useParams();
+  const [isGenerating, setIsGenerating] = useState(false);
 
   const { data: article, isLoading, isError } = useGetArticleBySlugQuery(slug);
 
@@ -78,9 +80,6 @@ export default function ArticleDetailPage() {
     return chunks.join(" ");
   }, [article]);
   const minutes = Math.max(3, Math.round(wordCount(totalText) / 200));
-
-  // Build TOC (optional): if your content is markdown, you can pre-compute headings client-side if needed.
-  // For now, we’ll skip a formal TOC and keep your previous UI.
 
   // ---- Related: need tag_ids from names ----
   const { data: tagsResp } = useGetTagsQuery();
@@ -104,7 +103,6 @@ export default function ArticleDetailPage() {
 
   const relatedItems = useMemo(() => {
     const items = relatedResp?.data?.items ?? [];
-    // exclude current, take 4
     return items
       .filter((x) => x.id !== article?.id)
       .slice(0, 4)
@@ -216,9 +214,10 @@ export default function ArticleDetailPage() {
             </div>
           )}
 
-          {/* Share */}
-          <div className="my-6">
+          {/* Share & Download Buttons */}
+          <div className="my-6 flex items-center gap-4">
             <ShareButtons />
+            <ArticlePdfButton article={article} minutes={minutes} fmtID={fmtID} />  
           </div>
 
           {/* Summary (optional) */}
