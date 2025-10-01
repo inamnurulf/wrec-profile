@@ -1,5 +1,6 @@
 "use client";
 import { useMemo } from "react";
+import Link from "next/link";
 import {
   Search,
   X,
@@ -7,8 +8,6 @@ import {
   List as ListIcon,
   SortAsc,
   SortDesc,
-  FileDown,
-  Globe,
   FolderOpenDot,
 } from "lucide-react";
 
@@ -18,18 +17,10 @@ import {
   setSort,
   setView,
   setPage,
-  // setLimit, // use if you expose page size
   reset,
 } from "@/store/slices/publicFiles.slice";
 
 import { useListPublicFilesQuery } from "@/services/public.api";
-
-const getDownloadLink = (link) => {
-  const match = link.match(/\/d\/([^/]+)\//);
-  return match
-    ? `https://drive.google.com/uc?export=download&id=${match[1]}`
-    : link; // fallback
-};
 
 /* -------------------- Mini UI bits (inline) -------------------- */
 function classNames(...xs) {
@@ -43,7 +34,7 @@ const fmtID = (iso) =>
     : "";
 
 function Badge({ children, tone = "slate" }) {
-  const map = {
+  const map= {
     slate: "bg-slate-100 text-slate-700 ring-1 ring-inset ring-slate-200",
     green: "bg-emerald-100 text-emerald-700 ring-1 ring-inset ring-emerald-200",
     yellow: "bg-amber-100 text-amber-800 ring-1 ring-inset ring-amber-200",
@@ -57,7 +48,11 @@ function Badge({ children, tone = "slate" }) {
   );
 }
 
-function Pagination({ page, pages, onPage }) {
+function Pagination({
+  page,
+  pages,
+  onPage,
+}) {
   if (pages <= 1) return null;
   const nums = [];
   for (let i = 1; i <= pages; i++) nums.push(i);
@@ -95,12 +90,7 @@ function Pagination({ page, pages, onPage }) {
 
 function Skeleton({ className = "" }) {
   return (
-    <div
-      className={classNames(
-        "animate-pulse rounded-md bg-slate-200/70",
-        className
-      )}
-    />
+    <div className={classNames("animate-pulse rounded-md bg-slate-200/70", className)} />
   );
 }
 function CardSkeleton({ compact = false }) {
@@ -130,32 +120,26 @@ function CardSkeleton({ compact = false }) {
 
 /* -------------------- File card -------------------- */
 function FileCard({ f, compact = false }) {
+  const detailHref = `./database/${f.slug}`; // relative to current list route
+
   if (compact) {
     return (
       <div className="group rounded-2xl border border-slate-200 bg-white p-4 shadow-sm transition hover:shadow-md">
         <div className="mb-1 flex items-start justify-between gap-3">
           <h3 className="min-w-0 truncate font-semibold">{f.title}</h3>
-          {f.is_published ? (
-            <Badge tone="green">Published</Badge>
-          ) : (
-            <Badge tone="yellow">Draft</Badge>
-          )}
+          {f.is_published ? <Badge tone="green">Published</Badge> : <Badge tone="yellow">Draft</Badge>}
         </div>
-        <p className="line-clamp-2 text-sm text-slate-600">
-          {f.description || "—"}
-        </p>
+        <p className="line-clamp-2 text-sm text-slate-600">{f.description || "—"}</p>
         <div className="mt-3 flex items-center justify-between text-xs text-slate-500">
           <span>Diperbarui {fmtID(f.updated_at) || "—"}</span>
           <div className="flex items-center gap-2">
-            <a
-              href={getDownloadLink(f.drive_link)}
-              target="_blank"
-              rel="noreferrer"
+            <Link
+              href={detailHref}
               className="inline-flex items-center gap-1 rounded-lg border border-slate-200 px-2 py-1 hover:bg-slate-50"
-              title="Unduh"
+              title="Lihat detail"
             >
-              <FileDown size={14} /> Download
-            </a>
+              Detail
+            </Link>
           </div>
         </div>
       </div>
@@ -166,27 +150,19 @@ function FileCard({ f, compact = false }) {
     <div className="group rounded-2xl border border-slate-200 bg-white p-5 shadow-sm transition hover:shadow-md">
       <div className="mb-2 flex items-start justify-between gap-3">
         <h3 className="min-w-0 truncate font-semibold">{f.title}</h3>
-        {f.is_published ? (
-          <Badge tone="green">Published</Badge>
-        ) : (
-          <Badge tone="yellow">Draft</Badge>
-        )}
+        {f.is_published ? <Badge tone="green">Published</Badge> : <Badge tone="yellow">Draft</Badge>}
       </div>
-      <p className="line-clamp-3 text-sm text-slate-600">
-        {f.description || "—"}
-      </p>
+      <p className="line-clamp-3 text-sm text-slate-600">{f.description || "—"}</p>
       <div className="mt-4 flex items-center justify-between text-xs text-slate-500">
         <span>Diperbarui {fmtID(f.updated_at) || "—"}</span>
         <div className="flex items-center gap-2">
-          <a
-            href={getDownloadLink(f.drive_link)}
-            target="_blank"
-            rel="noreferrer"
+          <Link
+            href={detailHref}
             className="inline-flex items-center gap-1 rounded-lg border border-slate-200 px-2 py-1 hover:bg-slate-50"
-            title="Unduh"
+            title="Lihat detail"
           >
-            <FileDown size={14} /> Download
-          </a>
+            Detail
+          </Link>
         </div>
       </div>
     </div>
@@ -200,7 +176,7 @@ export default function PublicFilesFrontPage() {
 
   const { data, isLoading, isError } = useListPublicFilesQuery({
     q: ui.q || undefined,
-    sort: ui.sort, // created_desc|created_asc|title_asc|title_desc
+    sort: ui.sort,
     page: ui.page,
     limit: ui.limit,
   });
@@ -214,9 +190,6 @@ export default function PublicFilesFrontPage() {
         pages: Math.ceil(data.data.total / data.data.limit),
       }
     : { page: ui.page, limit: ui.limit, total: 0, pages: 1 };
-
-  const skeletonCount =
-    ui.view === "list" ? Math.min(ui.limit, 8) : Math.min(ui.limit, 12);
 
   const headerNote = useMemo(() => {
     const parts = [`Menampilkan ${meta.total} file`];
@@ -233,8 +206,7 @@ export default function PublicFilesFrontPage() {
         </h1>
         <div className="mt-2 h-1 w-16 rounded bg-emerald-500" />
         <p className="mt-4 max-w-3xl text-sm leading-relaxed text-slate-700">
-          Database ini disediakan oleh WRECC sebagai pusat publikasi dan
-          informasi…
+          Database ini disediakan oleh WRECC sebagai pusat publikasi dan informasi…
           <span className="mt-3 block font-medium text-slate-800">
             Hak cipta © 2025 WRECC. Semua hak dilindungi undang-undang.
           </span>

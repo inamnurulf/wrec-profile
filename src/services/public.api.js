@@ -28,13 +28,12 @@ const mapPublicFile = (f) => ({
   slug: f.slug,
   title: f.title,
   description: f.description ?? "",
-  drive_link: f.drive_link ?? "",
+  links: f.links ?? [],
   is_published: !!f.is_published,
   metadata: f.metadata ?? {},
   created_at: f.created_at ?? f.createdAt ?? null,
   updated_at: f.updated_at ?? f.updatedAt ?? null,
 });
-
 
 export const publicApi = createApi({
   reducerPath: "publicApi",
@@ -42,7 +41,7 @@ export const publicApi = createApi({
     baseUrl: process.env.NEXT_PUBLIC_API_BASE_URL,
   }),
   keepUnusedDataFor: 60,
-  tagTypes: ["Articles", "Tags", "Article"],
+  tagTypes: ["Articles", "Tags", "Article", "PublicFiles"],
   endpoints: (builder) => ({
     listArticles: builder.query({
       /**
@@ -145,6 +144,33 @@ export const publicApi = createApi({
       },
       providesTags: [{ type: "Tags", id: "LIST" }],
     }),
+    // add inside endpoints: (builder) => ({ ... })
+    getPublicFileBySlug: builder.query({
+      /**
+       * Fetch single public file by slug.
+       * Public FE only shows published files.
+       */
+      query: (slug) => {
+        const u = new URL(
+          "/v1/public-files",
+          process.env.NEXT_PUBLIC_API_BASE_URL
+        );
+        u.searchParams.set("is_published", "true");
+        u.searchParams.set("slug", slug);
+        u.searchParams.set("limit", "1");
+        return u.pathname + u.search;
+      },
+      transformResponse: (resp) => {
+        const root = resp?.data ?? resp ?? {};
+        const raw = root.items?.[0] ?? null;
+        return raw ? mapPublicFile(raw) : null;
+      },
+      providesTags: (file, _err, slug) =>
+        file
+          ? [{ type: "PublicFiles", id: file.id }]
+          : [{ type: "PublicFiles", id: `SLUG:${slug}` }],
+    }),
+
     listPublicFiles: builder.query({
       /**
        * params: { q?, sort? = "created_desc"|"created_asc"|"title_asc"|"title_desc", page?, limit? }
@@ -198,4 +224,5 @@ export const {
   useListRelatedQuery,
   useGetTagsQuery,
   useListPublicFilesQuery,
+  useGetPublicFileBySlugQuery
 } = publicApi;
