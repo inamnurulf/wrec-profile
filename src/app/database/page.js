@@ -202,11 +202,11 @@ export default function PublicFilesFrontPage() {
       {/* Title */}
       <div className="mb-8">
         <h1 className="text-3xl font-extrabold tracking-tight text-slate-900">
-          Data & Documents
+          Hydro-Climate Research Database
         </h1>
         <div className="mt-2 h-1 w-16 rounded bg-emerald-500" />
         <p className="mt-4 max-w-3xl text-sm leading-relaxed text-slate-700">
-          Database ini disediakan oleh WRECC sebagai pusat publikasi dan informasi…
+          This database provides access to hydro-climate datasets from external platforms as well as analytical results produced by WRECC. All datasets are available in multiple formats (NetCDF, GeoTIFF, CSV) with supporting metadata.
           <span className="mt-3 block font-medium text-slate-800">
             Hak cipta © 2025 WRECC. Semua hak dilindungi undang-undang.
           </span>
