@@ -7,6 +7,7 @@ import {
   User,
   ChevronRight,
   Eye,
+  ExternalLink,
 } from "lucide-react";
 import ReactMarkdown from "react-markdown";
 import { useParams, useRouter } from "next/navigation";
@@ -38,6 +39,7 @@ function useReadingProgress() {
   }, []);
   return progress;
 }
+
 const wordCount = (s = "") => String(s).split(/\s+/).filter(Boolean).length;
 const fmtID = (iso) =>
   iso
@@ -59,6 +61,10 @@ const TagPills = ({ tags = [] }) => (
   </div>
 );
 
+// Convert Drive share link to /preview for iframe
+const toDrivePreview = (url = "") =>
+  /\/preview($|\?)/.test(url) ? url : url.replace(/\/view(\?.*)?$/, "/preview");
+
 export default function ArticleDetailPage() {
   const progress = useReadingProgress();
   const router = useRouter();
@@ -73,12 +79,30 @@ export default function ArticleDetailPage() {
     }
   }, [isLoading, article, router]);
 
-  // Reading time from `summary + content` (fallback)
+  // ---- Source detection (inline vs drive) ----
+  const source = useMemo(() => {
+    const s = (article?.source || "").toLowerCase();
+    if (s === "inline" || s === "drive") return s;
+    // Fallback: infer drive when external_link exists
+    return article?.external_link ? "drive" : "inline";
+  }, [article]);
+
+  const previewURL = useMemo(() => {
+    return source === "drive" && article?.external_link
+      ? toDrivePreview(String(article.external_link))
+      : null;
+  }, [source, article]);
+
+  // Reading time: for drive articles, base on summary only (no body text)
   const totalText = useMemo(() => {
     if (!article) return "";
-    const chunks = [article.summary, article.content].filter(Boolean);
-    return chunks.join(" ");
-  }, [article]);
+    const parts =
+      source === "drive"
+        ? [article.summary]
+        : [article.summary, article.content].filter(Boolean);
+    return parts.join(" ");
+  }, [article, source]);
+
   const minutes = Math.max(3, Math.round(wordCount(totalText) / 200));
 
   // ---- Related: need tag_ids from names ----
@@ -217,7 +241,19 @@ export default function ArticleDetailPage() {
           {/* Share & Download Buttons */}
           <div className="my-6 flex items-center gap-4">
             <ShareButtons />
-            <ArticlePdfButton article={article} minutes={minutes} fmtID={fmtID} />  
+            <ArticlePdfButton article={article} minutes={minutes} fmtID={fmtID} />
+            {source === "drive" && article.external_link && (
+              <a
+                href={article.external_link}
+                target="_blank"
+                rel="noreferrer"
+                className="inline-flex items-center gap-2 rounded-full border px-3 py-1.5 text-sm hover:bg-gray-50"
+                title="Buka di Google Drive"
+              >
+                <ExternalLink className="w-4 h-4" />
+                Buka Dokumen
+              </a>
+            )}
           </div>
 
           {/* Summary (optional) */}
@@ -225,114 +261,110 @@ export default function ArticleDetailPage() {
             <p className="text-gray-700 leading-8 mb-6">{article.summary}</p>
           )}
 
-          {/* Markdown/HTML body */}
-          {article.content && (
-            <div className="prose max-w-none">
-              <ReactMarkdown
-                components={{
-                  h1: ({ node, ...props }) => (
-                    <h1
-                      className="text-3xl font-extrabold tracking-tight mt-8 mb-4 text-gray-900"
-                      {...props}
-                    />
-                  ),
-                  h2: ({ node, ...props }) => (
-                    <h2
-                      className="text-2xl font-semibold mt-6 mb-3 text-gray-800"
-                      {...props}
-                    />
-                  ),
-                  h3: ({ node, ...props }) => (
-                    <h3
-                      className="text-xl font-semibold mt-5 mb-2 text-gray-800"
-                      {...props}
-                    />
-                  ),
-                  p: ({ node, ...props }) => (
-                    <div className="text-gray-700 leading-8 mb-4" {...props} />
-                  ),
-                  ul: ({ node, ...props }) => (
-                    <ul
-                      className="list-disc list-inside space-y-1 text-gray-700 mb-4 pl-4"
-                      {...props}
-                    />
-                  ),
-                  ol: ({ node, ...props }) => (
-                    <ol
-                      className="list-decimal list-inside space-y-1 text-gray-700 mb-4 pl-4"
-                      {...props}
-                    />
-                  ),
-                  li: ({ node, ...props }) => (
-                    <li className="ml-2" {...props} />
-                  ),
-                  blockquote: ({ node, ...props }) => (
-                    <blockquote
-                      className="border-l-4 border-emerald-400 pl-4 italic text-gray-600 my-4"
-                      {...props}
-                    />
-                  ),
-                  code: ({ node, inline, ...props }) =>
-                    inline ? (
-                      <code
-                        className="bg-gray-100 rounded px-1.5 py-0.5 text-sm font-mono text-emerald-700"
+          {/* Body: Drive preview or Markdown */}
+          {source === "drive" ? (
+            article.external_link ? (
+              <div className="relative w-full h-[78vh] rounded-xl overflow-hidden border border-gray-200 shadow">
+                <iframe
+                  src={previewURL}
+                  className="absolute inset-0 h-full w-full"
+                  allow="autoplay"
+                  title="Drive Preview"
+                />
+              </div>
+            ) : (
+              <div className="rounded-md border border-amber-300 bg-amber-50 p-3 text-amber-800">
+                Tautan dokumen belum tersedia. Mohon lengkapi <b>external_link</b>.
+              </div>
+            )
+          ) : (
+            article.content && (
+              <div className="prose max-w-none">
+                <ReactMarkdown
+                  components={{
+                    h1: ({ node, ...props }) => (
+                      <h1
+                        className="text-3xl font-extrabold tracking-tight mt-8 mb-4 text-gray-900"
                         {...props}
                       />
-                    ) : (
-                      <pre className="bg-gray-900 text-gray-100 rounded-xl p-4 overflow-x-auto my-4">
-                        <code className="font-mono text-sm" {...props} />
-                      </pre>
                     ),
-                  a: ({ node, ...props }) => (
-                    <a
-                      className="text-emerald-600 hover:underline font-medium"
-                      {...props}
-                    />
-                  ),
-                  img: ({ node, ...props }) => (
-                    <img
-                      className="rounded-xl shadow my-6 max-w-full"
-                      {...props}
-                    />
-                  ),
-                  table: ({ node, ...props }) => (
-                    <table
-                      className="w-full border-collapse border border-gray-200 text-sm my-6"
-                      {...props}
-                    />
-                  ),
-                  thead: ({ node, ...props }) => (
-                    <thead
-                      className="bg-gray-100 text-gray-700 font-semibold"
-                      {...props}
-                    />
-                  ),
-                  tbody: ({ node, ...props }) => (
-                    <tbody className="divide-y divide-gray-200" {...props} />
-                  ),
-                  tr: ({ node, ...props }) => (
-                    <tr className="border-b last:border-0" {...props} />
-                  ),
-                  th: ({ node, ...props }) => (
-                    <th
-                      className="border border-gray-200 px-3 py-2 text-left"
-                      {...props}
-                    />
-                  ),
-                  td: ({ node, ...props }) => (
-                    <td
-                      className="border border-gray-200 px-3 py-2"
-                      {...props}
-                    />
-                  ),
-                  hr: ({ node, ...props }) => (
-                    <hr className="my-8 border-gray-200" {...props} />
-                  ),
-                }}
-              >
-                {article.content}
-              </ReactMarkdown>
-            </div>
+                    h2: ({ node, ...props }) => (
+                      <h2
+                        className="text-2xl font-semibold mt-6 mb-3 text-gray-800"
+                        {...props}
+                      />
+                    ),
+                    h3: ({ node, ...props }) => (
+                      <h3
+                        className="text-xl font-semibold mt-5 mb-2 text-gray-800"
+                        {...props}
+                      />
+                    ),
+                    p: ({ node, ...props }) => (
+                      <div className="text-gray-700 leading-8 mb-4" {...props} />
+                    ),
+                    ul: ({ node, ...props }) => (
+                      <ul
+                        className="list-disc list-inside space-y-1 text-gray-700 mb-4 pl-4"
+                        {...props}
+                      />
+                    ),
+                    ol: ({ node, ...props }) => (
+                      <ol
+                        className="list-decimal list-inside space-y-1 text-gray-700 mb-4 pl-4"
+                        {...props}
+                      />
+                    ),
+                    li: ({ node, ...props }) => <li className="ml-2" {...props} />,
+                    blockquote: ({ node, ...props }) => (
+                      <blockquote
+                        className="border-l-4 border-emerald-400 pl-4 italic text-gray-600 my-4"
+                        {...props}
+                      />
+                    ),
+                    code: ({ node, inline, ...props }) =>
+                      inline ? (
+                        <code
+                          className="bg-gray-100 rounded px-1.5 py-0.5 text-sm font-mono text-emerald-700"
+                          {...props}
+                        />
+                      ) : (
+                        <pre className="bg-gray-900 text-gray-100 rounded-xl p-4 overflow-x-auto my-4">
+                          <code className="font-mono text-sm" {...props} />
+                        </pre>
+                      ),
+                    a: ({ node, ...props }) => (
+                      <a className="text-emerald-600 hover:underline font-medium" {...props} />
+                    ),
+                    img: ({ node, ...props }) => (
+                      <img className="rounded-xl shadow my-6 max-w-full" {...props} />
+                    ),
+                    table: ({ node, ...props }) => (
+                      <table
+                        className="w-full border-collapse border border-gray-200 text-sm my-6"
+                        {...props}
+                      />
+                    ),
+                    thead: ({ node, ...props }) => (
+                      <thead className="bg-gray-100 text-gray-700 font-semibold" {...props} />
+                    ),
+                    tbody: ({ node, ...props }) => (
+                      <tbody className="divide-y divide-gray-200" {...props} />
+                    ),
+                    tr: ({ node, ...props }) => <tr className="border-b last:border-0" {...props} />,
+                    th: ({ node, ...props }) => (
+                      <th className="border border-gray-200 px-3 py-2 text-left" {...props} />
+                    ),
+                    td: ({ node, ...props }) => (
+                      <td className="border border-gray-200 px-3 py-2" {...props} />
+                    ),
+                    hr: ({ node, ...props }) => <hr className="my-8 border-gray-200" {...props} />,
+                  }}
+                >
+                  {article.content}
+                </ReactMarkdown>
+              </div>
+            )
           )}
         </article>
 
@@ -340,18 +372,12 @@ export default function ArticleDetailPage() {
         <aside className="md:col-span-4 space-y-6 md:sticky md:top-20 self-start">
           {/* Related */}
           <div className="bg-white rounded-2xl shadow p-5">
-            <div className="text-sm font-semibold text-gray-700 mb-3">
-              Artikel Lain
-            </div>
+            <div className="text-sm font-semibold text-gray-700 mb-3">Artikel Lain</div>
             <ul className="space-y-4">
               {relatedItems.length === 0 ? (
-                <li className="text-sm text-gray-500">
-                  Tidak ada artikel terkait.
-                </li>
+                <li className="text-sm text-gray-500">Tidak ada artikel terkait.</li>
               ) : (
-                relatedItems.map((it, idx) => (
-                  <RelatedItemCard key={idx} item={it} />
-                ))
+                relatedItems.map((it, idx) => <RelatedItemCard key={idx} item={it} />)
               )}
             </ul>
           </div>
