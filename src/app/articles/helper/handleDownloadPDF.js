@@ -202,7 +202,7 @@ export default function ArticlePdfButton({
       type="button"
       onClick={handleDownloadPDF}
       disabled={isGenerating}
-      className={`inline-flex items-center justify-center rounded-xl px-4 py-2 text-sm font-medium shadow-sm transition-colors
+      className={`hidden md:inline-flex items-center justify-center rounded-xl px-4 py-2 text-sm font-medium shadow-sm transition-colors
     ${
       isGenerating
         ? "bg-gray-300 text-gray-600 cursor-not-allowed"
