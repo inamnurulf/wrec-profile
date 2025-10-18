@@ -10,7 +10,7 @@ export async function setLocale(nextLocale, returnPath = '/') {
   const safe = SUPPORTED.includes(nextLocale) ? nextLocale : 'en';
 
   // Persist for ~1 year
-  cookies().set('locale', safe, {
+  await cookies().set('locale', safe, {
     path: '/',
     maxAge: 60 * 60 * 24 * 365,
     sameSite: 'lax'
