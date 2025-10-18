@@ -1,16 +1,26 @@
+"use client";
+
 import Section from "./atoms/Section";
 import { CalendarCheck } from "lucide-react";
+import { useTranslations } from "next-intl";
 
 export default function Milestones() {
+  const t = useTranslations();
+
   const roadmap = [
-    { year: "2026", text: "Establish a 5‑Year Research Roadmap for climate‑adaptive irrigation, flood & drought resilience, climate projections, and the water‑energy‑food nexus." },
-    { year: "2028", text: "Launch annual joint research programs, international publications, policy briefs, seminars, and workshops with partners." },
-    { year: "2030", text: "Expand short courses and training for governments and communities to strengthen water & climate adaptation capacity." },
-    { year: "2040", text: "Achieve full integration of research, education, and outreach; become a national & Asia‑Pacific reference hub." },
+    { year: "2026", text: t("milestones.item1") },
+    { year: "2028", text: t("milestones.item2") },
+    { year: "2030", text: t("milestones.item3") },
+    { year: "2040", text: t("milestones.item4") },
   ];
 
   return (
-    <Section id="milestones" eyebrow="Future Plans & Milestones" title="Roadmap to 2040">
+    <Section
+      id="milestones"
+      eyebrow={t("milestones.eyebrow")}
+      title={t("milestones.title")}
+      desc={t("milestones.desc")}
+    >
       <ol className="relative border-s border-slate-200 pl-6">
         {roadmap.map((m) => (
           <li key={m.year} className="mb-8">

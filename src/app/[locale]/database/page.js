@@ -1,6 +1,6 @@
 "use client";
 import { useMemo } from "react";
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
 import {
   Search,
   X,
@@ -17,24 +17,18 @@ import {
   setSort,
   setView,
   setPage,
-  reset,
 } from "@/store/slices/publicFiles.slice";
 
 import { useListPublicFilesQuery } from "@/services/public.api";
+import { useLocale, useTranslations } from "next-intl";
 
 /* -------------------- Mini UI bits (inline) -------------------- */
 function classNames(...xs) {
   return xs.filter(Boolean).join(" ");
 }
-const fmtID = (iso) =>
-  iso
-    ? new Intl.DateTimeFormat("id-ID", { dateStyle: "medium" }).format(
-        new Date(iso)
-      )
-    : "";
 
 function Badge({ children, tone = "slate" }) {
-  const map= {
+  const map = {
     slate: "bg-slate-100 text-slate-700 ring-1 ring-inset ring-slate-200",
     green: "bg-emerald-100 text-emerald-700 ring-1 ring-inset ring-emerald-200",
     yellow: "bg-amber-100 text-amber-800 ring-1 ring-inset ring-amber-200",
@@ -48,22 +42,19 @@ function Badge({ children, tone = "slate" }) {
   );
 }
 
-function Pagination({
-  page,
-  pages,
-  onPage,
-}) {
+function Pagination({ page, pages, onPage, prevLabel, nextLabel }) {
   if (pages <= 1) return null;
-  const nums = [];
-  for (let i = 1; i <= pages; i++) nums.push(i);
+  const nums = Array.from({ length: pages }, (_, i) => i + 1);
   return (
     <div className="flex items-center justify-center gap-1">
       <button
         onClick={() => onPage(Math.max(1, page - 1))}
         className="rounded-lg border border-slate-200 px-3 py-1.5 text-sm hover:bg-slate-50 disabled:opacity-40"
         disabled={page <= 1}
+        aria-label={prevLabel}
+        title={prevLabel}
       >
-        Prev
+        {prevLabel}
       </button>
       {nums.map((n) => (
         <button
@@ -73,6 +64,8 @@ function Pagination({
             "rounded-lg px-3 py-1.5 text-sm",
             n === page ? "bg-slate-900 text-white" : "hover:bg-slate-100"
           )}
+          aria-label={`${n}`}
+          title={`${n}`}
         >
           {n}
         </button>
@@ -81,8 +74,10 @@ function Pagination({
         onClick={() => onPage(Math.min(pages, page + 1))}
         className="rounded-lg border border-slate-200 px-3 py-1.5 text-sm hover:bg-slate-50 disabled:opacity-40"
         disabled={page >= pages}
+        aria-label={nextLabel}
+        title={nextLabel}
       >
-        Next
+        {nextLabel}
       </button>
     </div>
   );
@@ -90,7 +85,12 @@ function Pagination({
 
 function Skeleton({ className = "" }) {
   return (
-    <div className={classNames("animate-pulse rounded-md bg-slate-200/70", className)} />
+    <div
+      className={classNames(
+        "animate-pulse rounded-md bg-slate-200/70",
+        className
+      )}
+    />
   );
 }
 function CardSkeleton({ compact = false }) {
@@ -120,25 +120,44 @@ function CardSkeleton({ compact = false }) {
 
 /* -------------------- File card -------------------- */
 function FileCard({ f, compact = false }) {
-  const detailHref = `./database/${f.slug}`; // relative to current list route
+  const t = useTranslations("PublicFiles");
+  const locale = useLocale();
+  const fmtDate = (iso) =>
+    iso
+      ? new Intl.DateTimeFormat(locale, { dateStyle: "medium" }).format(
+          new Date(iso)
+        )
+      : "";
+
+  // Use absolute pathname key so i18n Link can localize it via your routing map
+  const detailHref = `/database/${f.slug}`;
 
   if (compact) {
     return (
       <div className="group rounded-2xl border border-slate-200 bg-white p-4 shadow-sm transition hover:shadow-md">
         <div className="mb-1 flex items-start justify-between gap-3">
           <h3 className="min-w-0 truncate font-semibold">{f.title}</h3>
-          {f.is_published ? <Badge tone="green">Published</Badge> : <Badge tone="yellow">Draft</Badge>}
+          {f.is_published ? (
+            <Badge tone="green">{t("published")}</Badge>
+          ) : (
+            <Badge tone="yellow">{t("draft")}</Badge>
+          )}
         </div>
-        <p className="line-clamp-2 text-sm text-slate-600">{f.description || "—"}</p>
+        <p className="line-clamp-2 text-sm text-slate-600">
+          {f.description || "—"}
+        </p>
         <div className="mt-3 flex items-center justify-between text-xs text-slate-500">
-          <span>Diperbarui {fmtID(f.updated_at) || "—"}</span>
+          <span>
+            {t("updated")} {fmtDate(f.updated_at) || "—"}
+          </span>
           <div className="flex items-center gap-2">
             <Link
               href={detailHref}
               className="inline-flex items-center gap-1 rounded-lg border border-slate-200 px-2 py-1 hover:bg-slate-50"
-              title="Lihat detail"
+              title={t("viewDetails")}
+              aria-label={t("viewDetails")}
             >
-              Detail
+              {t("details")}
             </Link>
           </div>
         </div>
@@ -150,18 +169,27 @@ function FileCard({ f, compact = false }) {
     <div className="group rounded-2xl border border-slate-200 bg-white p-5 shadow-sm transition hover:shadow-md">
       <div className="mb-2 flex items-start justify-between gap-3">
         <h3 className="min-w-0 truncate font-semibold">{f.title}</h3>
-        {f.is_published ? <Badge tone="green">Published</Badge> : <Badge tone="yellow">Draft</Badge>}
+        {f.is_published ? (
+          <Badge tone="green">{t("published")}</Badge>
+        ) : (
+          <Badge tone="yellow">{t("draft")}</Badge>
+        )}
       </div>
-      <p className="line-clamp-3 text-sm text-slate-600">{f.description || "—"}</p>
+      <p className="line-clamp-3 text-sm text-slate-600">
+        {f.description || "—"}
+      </p>
       <div className="mt-4 flex items-center justify-between text-xs text-slate-500">
-        <span>Diperbarui {fmtID(f.updated_at) || "—"}</span>
+        <span>
+          {t("updated")} {fmtDate(f.updated_at) || "—"}
+        </span>
         <div className="flex items-center gap-2">
           <Link
             href={detailHref}
             className="inline-flex items-center gap-1 rounded-lg border border-slate-200 px-2 py-1 hover:bg-slate-50"
-            title="Lihat detail"
+            title={t("viewDetails")}
+            aria-label={t("viewDetails")}
           >
-            Detail
+            {t("details")}
           </Link>
         </div>
       </div>
@@ -173,6 +201,8 @@ function FileCard({ f, compact = false }) {
 export default function PublicFilesFrontPage() {
   const dispatch = useAppDispatch();
   const ui = useAppSelector((s) => s.publicFilesUI);
+  const t = useTranslations("PublicFiles");
+  const locale = useLocale();
 
   const { data, isLoading, isError } = useListPublicFilesQuery({
     q: ui.q || undefined,
@@ -192,23 +222,26 @@ export default function PublicFilesFrontPage() {
     : { page: ui.page, limit: ui.limit, total: 0, pages: 1 };
 
   const headerNote = useMemo(() => {
-    const parts = [`Menampilkan ${meta.total} file`];
-    if (ui.q) parts.push(`dengan kata kunci "${ui.q}"`);
-    return parts.join(" ");
-  }, [meta.total, ui.q]);
+    const base = t("showingCount", { count: meta.total });
+    return ui.q ? `${base} ${t("withKeyword", { q: ui.q })}` : base;
+  }, [meta.total, ui.q, t]);
 
   return (
     <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8 min-h-[80vh]">
       {/* Title */}
       <div className="mb-8">
         <h1 className="text-3xl font-extrabold tracking-tight text-slate-900">
-          Hydro-Climate Research Database
+          {t("title")}
         </h1>
         <div className="mt-2 h-1 w-16 rounded bg-emerald-500" />
         <p className="mt-4 max-w-3xl text-sm leading-relaxed text-slate-700">
-          This database provides access to hydro-climate datasets from external platforms as well as analytical results produced by WRECC. All datasets are available in multiple formats (NetCDF, GeoTIFF, CSV) with supporting metadata.
+          {t("subtitle")}
           <span className="mt-3 block font-medium text-slate-800">
-            Hak cipta © 2025 WRECC. Semua hak dilindungi undang-undang.
+            {t("copyright", {
+              year: new Intl.DateTimeFormat(locale, { year: "numeric" }).format(
+                new Date()
+              ),
+            })}
           </span>
         </p>
       </div>
@@ -222,12 +255,15 @@ export default function PublicFilesFrontPage() {
               value={ui.q}
               onChange={(e) => dispatch(setQ(e.target.value))}
               className="w-full rounded-xl border border-slate-200 bg-white py-2 pl-9 pr-9 text-sm outline-none ring-0 placeholder:text-slate-400 focus:border-emerald-400"
-              placeholder="Cari judul atau deskripsi…"
+              placeholder={t("searchPlaceholder")}
+              aria-label={t("searchAriaLabel")}
             />
             {ui.q && (
               <button
                 onClick={() => dispatch(setQ(""))}
                 className="absolute right-2 top-1/2 -translate-y-1/2 rounded-full p-1 text-slate-400 hover:text-slate-600"
+                aria-label={t("clearSearch")}
+                title={t("clearSearch")}
               >
                 <X className="h-4 w-4" />
               </button>
@@ -236,7 +272,7 @@ export default function PublicFilesFrontPage() {
 
           <div className="flex items-center gap-1 rounded-xl border bg-white px-2 py-1.5 text-sm">
             <span className="hidden px-2 text-slate-500 sm:inline">
-              Urutkan
+              {t("sortBy")}
             </span>
             <button
               onClick={() => {
@@ -247,10 +283,11 @@ export default function PublicFilesFrontPage() {
                 "inline-flex items-center gap-1 rounded-lg px-2 py-1",
                 ui.sort === "created_desc" && "bg-slate-100"
               )}
-              title="Terbaru"
+              title={t("sortNewest")}
+              aria-label={t("sortNewest")}
             >
               <SortDesc className="h-4 w-4" />
-              <span className="hidden sm:inline">Terbaru</span>
+              <span className="hidden sm:inline">{t("newest")}</span>
             </button>
             <button
               onClick={() => {
@@ -261,10 +298,11 @@ export default function PublicFilesFrontPage() {
                 "inline-flex items-center gap-1 rounded-lg px-2 py-1",
                 ui.sort === "created_asc" && "bg-slate-100"
               )}
-              title="Terlama"
+              title={t("sortOldest")}
+              aria-label={t("sortOldest")}
             >
               <SortAsc className="h-4 w-4" />
-              <span className="hidden sm:inline">Terlama</span>
+              <span className="hidden sm:inline">{t("oldest")}</span>
             </button>
             <button
               onClick={() => {
@@ -278,7 +316,8 @@ export default function PublicFilesFrontPage() {
                 (ui.sort === "title_asc" || ui.sort === "title_desc") &&
                   "bg-slate-100"
               )}
-              title="A → Z / Z → A"
+              title={t("sortAZ")}
+              aria-label={t("sortAZ")}
             >
               A↔Z
             </button>
@@ -293,7 +332,8 @@ export default function PublicFilesFrontPage() {
                 "inline-flex items-center gap-2 px-3 py-2 text-sm",
                 ui.view === "grid" ? "bg-slate-100" : "bg-white"
               )}
-              title="Grid"
+              title={t("viewGrid")}
+              aria-label={t("viewGrid")}
             >
               <LayoutGrid className="h-4 w-4" />
             </button>
@@ -303,7 +343,8 @@ export default function PublicFilesFrontPage() {
                 "inline-flex items-center gap-2 px-3 py-2 text-sm",
                 ui.view === "list" ? "bg-slate-100" : "bg-white"
               )}
-              title="List"
+              title={t("viewList")}
+              aria-label={t("viewList")}
             >
               <ListIcon className="h-4 w-4" />
             </button>
@@ -349,7 +390,7 @@ export default function PublicFilesFrontPage() {
           <div className="mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-full bg-slate-100">
             <FolderOpenDot className="h-6 w-6 text-slate-400" />
           </div>
-          <p className="text-slate-700">Tidak ada file yang cocok.</p>
+          <p className="text-slate-700">{t("emptyState")}</p>
           {ui.q && (
             <button
               onClick={() => {
@@ -358,7 +399,7 @@ export default function PublicFilesFrontPage() {
               }}
               className="mt-3 rounded-lg bg-slate-900 px-4 py-2 text-sm text-white hover:bg-slate-700"
             >
-              Hapus kata kunci
+              {t("clearKeyword")}
             </button>
           )}
         </div>
@@ -371,6 +412,8 @@ export default function PublicFilesFrontPage() {
             page={meta.page}
             pages={meta.pages}
             onPage={(p) => dispatch(setPage(p))}
+            prevLabel={t("prev")}
+            nextLabel={t("next")}
           />
         </div>
       )}

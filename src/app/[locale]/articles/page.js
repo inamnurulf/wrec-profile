@@ -29,16 +29,11 @@ import {
   setPage,
   reset,
 } from "@/store/slices/article.slice";
+import { useTranslations, useLocale } from "next-intl";
 
 function classNames(...xs) {
   return xs.filter(Boolean).join(" ");
 }
-const fmtID = (iso) =>
-  iso
-    ? new Intl.DateTimeFormat("id-ID", { dateStyle: "full" }).format(
-        new Date(iso)
-      )
-    : "";
 
 /** ---------- Skeleton toolkit ---------- */
 function Skeleton({ className = "" }) {
@@ -115,6 +110,19 @@ export default function ArticlesFrontPage() {
   const dispatch = useAppDispatch();
   const ui = useAppSelector((s) => s.articlesUI);
 
+  const t = useTranslations("Articles");
+  const locale = useLocale();
+
+  const fmtDate = useMemo(
+    () => (iso) =>
+      iso
+        ? new Intl.DateTimeFormat(locale, { dateStyle: "full" }).format(
+            new Date(iso)
+          )
+        : "",
+    [locale]
+  );
+
   const { data: tagsResp, isLoading: tagsLoading } = useGetTagsQuery();
 
   // Build slug->id map from /tags
@@ -164,7 +172,8 @@ export default function ArticlesFrontPage() {
   const featured = articles[0];
 
   // Decide how many skeleton cards to show while loading
-  const skeletonCount = ui.view === "list" ? Math.min(ui.limit, 6) : Math.min(ui.limit, 9);
+  const skeletonCount =
+    ui.view === "list" ? Math.min(ui.limit, 6) : Math.min(ui.limit, 9);
 
   return (
     <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8 min-h-[80vh]">
@@ -212,7 +221,7 @@ export default function ArticlesFrontPage() {
                     <>
                       <span className="inline-flex items-center gap-1">
                         <CalendarDays className="h-4 w-4" />
-                        {fmtID(featured.published_at)}
+                        {fmtDate(featured.published_at)}
                       </span>
                       <span>•</span>
                     </>
@@ -229,7 +238,7 @@ export default function ArticlesFrontPage() {
                   href={`/articles/${featured.slug}`}
                   className="mt-6 inline-flex items-center gap-2 rounded-full bg-emerald-400 px-4 py-2 font-medium text-slate-900 hover:bg-emerald-300"
                 >
-                  Baca unggulan <ArrowRight className="h-4 w-4" />
+                  {t("readFeatured")} <ArrowRight className="h-4 w-4" />
                 </a>
               </div>
             </div>
@@ -246,12 +255,14 @@ export default function ArticlesFrontPage() {
               value={ui.q}
               onChange={(e) => dispatch(setQ(e.target.value))}
               className="w-full rounded-xl border border-slate-200 bg-white py-2 pl-9 pr-9 text-sm outline-none ring-0 placeholder:text-slate-400 focus:border-emerald-400"
-              placeholder="Cari judul, tag, atau penulis..."
+              placeholder={t("searchPlaceholder")}
+              aria-label={t("searchAriaLabel")}
             />
             {ui.q && (
               <button
                 onClick={() => dispatch(setQ(""))}
                 className="absolute right-2 top-1/2 -translate-y-1/2 rounded-full p-1 text-slate-400 hover:text-slate-600"
+                aria-label={t("clearSearch")}
               >
                 <X className="h-4 w-4" />
               </button>
@@ -261,7 +272,7 @@ export default function ArticlesFrontPage() {
             onClick={() => dispatch(reset())}
             className="inline-flex items-center gap-2 rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm text-slate-700 hover:bg-slate-50"
           >
-            <Filter className="h-4 w-4" /> Reset
+            <Filter className="h-4 w-4" /> {t("reset")}
           </button>
         </div>
         <div className="flex items-center gap-2">
@@ -272,7 +283,8 @@ export default function ArticlesFrontPage() {
                 "inline-flex items-center gap-2 px-3 py-2 text-sm",
                 ui.view === "grid" ? "bg-slate-100" : "bg-white"
               )}
-              title="Grid"
+              title={t("viewGrid")}
+              aria-label={t("viewGrid")}
             >
               <LayoutGrid className="h-4 w-4" />
             </button>
@@ -282,14 +294,15 @@ export default function ArticlesFrontPage() {
                 "inline-flex items-center gap-2 px-3 py-2 text-sm",
                 ui.view === "list" ? "bg-slate-100" : "bg-white"
               )}
-              title="List"
+              title={t("viewList")}
+              aria-label={t("viewList")}
             >
               <ListIcon className="h-4 w-4" />
             </button>
           </div>
           <div className="flex items-center gap-1 rounded-xl border bg-white px-2 py-1.5 text-sm">
             <span className="hidden px-2 text-slate-500 sm:inline">
-              Urutkan
+              {t("sortBy")}
             </span>
             <button
               onClick={() => {
@@ -300,10 +313,10 @@ export default function ArticlesFrontPage() {
                 "inline-flex items-center gap-1 rounded-lg px-2 py-1",
                 ui.sort === "newest" && "bg-slate-100"
               )}
-              title="Terbaru"
+              title={t("sortNewest")}
             >
               <SortDesc className="h-4 w-4" />
-              <span className="hidden sm:inline">Terbaru</span>
+              <span className="hidden sm:inline">{t("newest")}</span>
             </button>
             <button
               onClick={() => {
@@ -314,10 +327,10 @@ export default function ArticlesFrontPage() {
                 "inline-flex items-center gap-1 rounded-lg px-2 py-1",
                 ui.sort === "oldest" && "bg-slate-100"
               )}
-              title="Terlama"
+              title={t("sortOldest")}
             >
               <SortAsc className="h-4 w-4" />
-              <span className="hidden sm:inline">Terlama</span>
+              <span className="hidden sm:inline">{t("oldest")}</span>
             </button>
             <button
               onClick={() => {
@@ -328,7 +341,7 @@ export default function ArticlesFrontPage() {
                 "inline-flex items-center gap-1 rounded-lg px-2 py-1",
                 ui.sort === "az" && "bg-slate-100"
               )}
-              title="A → Z"
+              title={t("sortAZ")}
             >
               A→Z
             </button>
@@ -342,13 +355,13 @@ export default function ArticlesFrontPage() {
           ? Array.from({ length: 10 }).map((_, i) => (
               <TagChipSkeleton key={i} />
             ))
-          : allTags.map((t) => (
+          : allTags.map((tagName) => (
               <Badge
-                key={t}
-                active={ui.tags.includes(t)}
-                onClick={() => dispatch(toggleTag(t))}
+                key={tagName}
+                active={ui.tags.includes(tagName)}
+                onClick={() => dispatch(toggleTag(tagName))}
               >
-                {t}
+                {tagName}
               </Badge>
             ))}
         {!tagsLoading && ui.tags.length > 0 && (
@@ -356,7 +369,7 @@ export default function ArticlesFrontPage() {
             onClick={() => dispatch(clearTags())}
             className="inline-flex items-center gap-1 rounded-full bg-slate-100 px-3 py-1 text-xs text-slate-700"
           >
-            Bersihkan <X className="h-3.5 w-3.5" />
+            {t("clearTags")} <X className="h-3.5 w-3.5" />
           </button>
         )}
       </section>
@@ -370,17 +383,17 @@ export default function ArticlesFrontPage() {
           </div>
         ) : (
           <>
-            Menampilkan <span className="font-semibold">{meta.total}</span> artikel
+            {t("showingCount", { count: meta.total })}
             {ui.tags.length ? (
               <>
                 {" "}
-                dengan tag{" "}
-                {ui.tags.map((t) => (
+                {t("withTags")}{" "}
+                {ui.tags.map((tg) => (
                   <span
-                    key={t}
+                    key={tg}
                     className="mx-0.5 rounded bg-slate-100 px-1.5 py-0.5 text-[11px]"
                   >
-                    {t}
+                    {tg}
                   </span>
                 ))}
               </>
@@ -388,7 +401,7 @@ export default function ArticlesFrontPage() {
             {ui.q ? (
               <>
                 {" "}
-                yang cocok dengan kata kunci{" "}
+                {t("matchingKeyword")}{" "}
                 <span className="rounded bg-yellow-100 px-1.5 py-0.5 text-[11px]">
                   {ui.q}
                 </span>
@@ -436,9 +449,7 @@ export default function ArticlesFrontPage() {
           <div className="mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-full bg-slate-100">
             <TagIcon className="h-6 w-6 text-slate-400" />
           </div>
-          <p className="text-slate-700">
-            Tidak ada artikel yang cocok dengan filter saat ini.
-          </p>
+          <p className="text-slate-700">{t("emptyState")}</p>
           <button
             onClick={() => {
               dispatch(clearTags());
@@ -446,7 +457,7 @@ export default function ArticlesFrontPage() {
             }}
             className="mt-3 rounded-lg bg-slate-900 px-4 py-2 text-sm text-white hover:bg-slate-700"
           >
-            Hapus filter
+            {t("clearFilters")}
           </button>
         </div>
       )}

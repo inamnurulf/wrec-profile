@@ -1,0 +1,175 @@
+{
+  "hero": {
+    "faculty": "Faculty of Agricultural Technology · UGM",
+    "title": "Water Resources Engineering & Climate Center",
+    "description": "We advance socio-hydro-climate understanding and co-create innovative approaches to build a sustainable and resilient future for water, climate, and society.",
+    "btnExplore": "Explore research",
+    "btnRoadmap": "See roadmap",
+    "imageAlt": "Hero Image"
+  },
+  "about": {
+    "eyebrow": "About",
+    "title": "Data, Innovation, and Resilience",
+    "desc": "A hub for integrated water–climate research, education, and outreach at Universitas Gadjah Mada.",
+    "card1": {
+      "title": "Hydro-Climate Informatics",
+      "desc": "Advanced models, decision-support systems, and digital platforms (incl. GIS and integrated modeling) to predict and mitigate water-related risks."
+    },
+    "card2": {
+      "title": "Community-Based Management",
+      "desc": "Empowering local communities through participatory irrigation, rural water development, and watershed conservation with training and consultancy."
+    }
+  },
+  "vision": {
+    "eyebrow": "Our Vision",
+    "title": "Socio-Hydro-Climate leadership for a resilient future",
+    "desc": "We enhance knowledge exchange, educate the next generation, coordinate interdisciplinary initiatives, and build bridges with partners.",
+    "point1": "Enhance exchange of ideas across disciplines.",
+    "point2": "Educate problem-solvers on water, climate, and equity.",
+    "point3": "Coordinate new programs, facilities, and services.",
+    "point4": "Build bridges with academic, public, and international partners."
+  },
+  "scope": {
+    "eyebrow": "Research Scope",
+    "title": "Advancing Socio-Hydro-Climate Research",
+    "desc": "Our interdisciplinary research integrates hydrology, climate science, and community-based approaches to tackle water challenges at every scale.",
+    "item1": {
+      "title": "Historical & Future Hydro-Climate Database",
+      "desc": "A comprehensive database of past and projected hydrological and climate data for trend analysis, scenario modeling, and long-term planning."
+    },
+    "item2": {
+      "title": "Hydro-Climate Informatics & Technology",
+      "desc": "Decision-support systems, hydroinformatics, and GIS-based analysis to improve water security and resilience."
+    },
+    "item3": {
+      "title": "Socio-Hydro-Climate & Innovative Technologies",
+      "desc": "Tools that combine social, hydrological, and climate knowledge to support irrigation and community-based water management."
+    },
+    "item4": {
+      "title": "Community-Based Management",
+      "desc": "Participatory irrigation, rural water development, and capacity building for equitable governance and sustainability."
+    }
+  },
+  "milestones": {
+    "eyebrow": "Future Plans & Milestones",
+    "title": "Roadmap to 2040",
+    "desc": "We are setting long-term goals to strengthen climate-adaptive research and build lasting impact.",
+    "item1": "Establish a 5-Year Research Roadmap for climate-adaptive irrigation, flood & drought resilience, climate projections, and the water-energy-food nexus.",
+    "item2": "Launch annual joint research programs, international publications, policy briefs, seminars, and workshops with partners.",
+    "item3": "Expand short courses and training for governments and communities to strengthen water & climate adaptation capacity.",
+    "item4": "Achieve full integration of research, education, and outreach; become a national & Asia-Pacific reference hub."
+  },
+  "team": {
+    "eyebrow": "Meet Our Team",
+    "title": "Researchers with diverse expertise",
+    "desc": "Dedicated to addressing sustainability and environmental resilience challenges.",
+    "role": {
+      "advisor": "Advisor",
+      "climateHead": "Head of Climate Resources Division",
+      "waterHead": "Head of Water Resources Division",
+      "research": "Research and Publication Division",
+      "community": "Community Engagement & Outreach Division"
+    }
+  },
+  "contact": {
+    "eyebrow": "Contact",
+    "title": "Get in touch",
+    "desc": "We’d love to collaborate on research, training, and community impact."
+  },
+  "Header": {
+    "about": "About",
+    "vision": "Vision",
+    "research": "Research",
+    "milestones": "Milestones",
+    "team": "Team",
+    "contact": "Contact",
+    "articles": "Articles",
+    "database": "Database",
+    "cta": "Get in touch"
+  },
+  "Articles": {
+    "readFeatured": "Read featured",
+    "searchPlaceholder": "Search title, tag, or author…",
+    "searchAriaLabel": "Search articles",
+    "clearSearch": "Clear search",
+    "reset": "Reset",
+    "viewGrid": "Grid view",
+    "viewList": "List view",
+    "sortBy": "Sort",
+    "sortNewest": "Sort by newest",
+    "sortOldest": "Sort by oldest",
+    "sortAZ": "Sort A to Z",
+    "newest": "Newest",
+    "oldest": "Oldest",
+    "clearTags": "Clear tags",
+    "showingCount": "Showing {count} articles",
+    "withTags": "with tags",
+    "matchingKeyword": "matching keyword",
+    "emptyState": "No articles match the current filters.",
+    "clearFilters": "Clear filters"
+  },
+  "PublicFiles": {
+    "title": "Hydro-Climate Research Database",
+    "subtitle": "This database provides access to hydro-climate datasets from external platforms as well as analytical results produced by WRECC. All datasets are available in multiple formats (NetCDF, GeoTIFF, CSV) with supporting metadata.",
+    "copyright": "© {year} WRECC. All rights reserved.",
+    "searchPlaceholder": "Search title or description…",
+    "searchAriaLabel": "Search files",
+    "clearSearch": "Clear search",
+    "sortBy": "Sort",
+    "sortNewest": "Sort by newest",
+    "sortOldest": "Sort by oldest",
+    "newest": "Newest",
+    "oldest": "Oldest",
+    "sortAZ": "Sort A ↔ Z",
+    "viewGrid": "Grid view",
+    "viewList": "List view",
+    "published": "Published",
+    "draft": "Draft",
+    "updated": "Updated",
+    "details": "Details",
+    "viewDetails": "View details",
+    "showingCount": "Showing {count} files",
+    "withKeyword": "matching keyword \"{q}\"",
+    "emptyState": "No files match the current filters.",
+    "clearKeyword": "Clear keyword",
+    "prev": "Prev",
+    "next": "Next"
+  },
+  "Article": {
+    "breadcrumb": {
+      "home": "Home",
+      "articles": "Articles"
+    },
+    "readingTime": "{minutes, plural, one {# min read} other {# min read}}",
+    "views": "{count} views",
+    "openInDrive": "Open in Google Drive",
+    "openDocument": "Open Document",
+    "missingExternalLink": "Document link is not available yet. Please fill the external_link field.",
+    "moreArticles": "More Articles",
+    "noRelated": "No related articles.",
+    "loadError": "Failed to load article. Please retry."
+  },
+  "PublicFileDetail": {
+    "breadcrumb": {
+      "home": "Home",
+      "database": "Database"
+    },
+    "readingTime": "{minutes, plural, one {# min read} other {# min read}}",
+    "created": "Created:",
+    "updated": "Updated:",
+    "status": {
+      "label": "Status",
+      "published": "Published",
+      "draft": "Draft"
+    },
+    "links": "Links",
+    "link": "Link",
+    "download": "Download",
+    "metadata": "Metadata",
+    "back": "Back",
+    "quickInfo": "Quick Info",
+    "slug": "Slug",
+    "id": "ID",
+    "loadError": "Failed to load data. Please retry."
+  }
+}

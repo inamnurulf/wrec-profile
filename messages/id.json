@@ -1,0 +1,176 @@
+{
+  "hero": {
+    "faculty": "Fakultas Teknologi Pertanian · UGM",
+    "title": "Water Resources Engineering & Climate Center",
+    "description": "Kami mengembangkan pemahaman sosio-hidro-iklim dan menciptakan pendekatan inovatif untuk membangun masa depan yang berkelanjutan dan tangguh bagi air, iklim, dan masyarakat.",
+    "btnExplore": "Jelajahi riset",
+    "btnRoadmap": "Lihat peta jalan",
+    "imageAlt": "Gambar utama"
+  },
+  "about": {
+    "eyebrow": "Tentang",
+    "title": "Data, Inovasi, dan Ketahanan",
+    "desc": "Pusat riset, pendidikan, dan pengabdian terintegrasi dalam bidang air dan iklim di Universitas Gadjah Mada.",
+    "card1": {
+      "title": "Informatika Hidro-Iklim",
+      "desc": "Model canggih, sistem pendukung keputusan, dan platform digital (termasuk GIS dan pemodelan terintegrasi) untuk memprediksi dan mengurangi risiko terkait air."
+    },
+    "card2": {
+      "title": "Manajemen Berbasis Komunitas",
+      "desc": "Memberdayakan masyarakat lokal melalui irigasi partisipatif, pengembangan air pedesaan, dan konservasi daerah aliran sungai dengan pelatihan dan konsultasi."
+    }
+  },
+  "vision": {
+    "eyebrow": "Visi Kami",
+    "title": "Kepemimpinan Sosio-Hidro-Iklim untuk masa depan yang tangguh",
+    "desc": "Kami meningkatkan pertukaran pengetahuan, mendidik generasi penerus, mengoordinasikan inisiatif lintas disiplin, dan membangun kolaborasi dengan berbagai mitra.",
+    "point1": "Meningkatkan pertukaran ide lintas disiplin.",
+    "point2": "Mendidik pemecah masalah di bidang air, iklim, dan kesetaraan.",
+    "point3": "Mengoordinasikan program, fasilitas, dan layanan baru.",
+    "point4": "Membangun jembatan dengan mitra akademik, publik, dan internasional."
+  },
+  "scope": {
+    "eyebrow": "Ruang Lingkup Riset",
+    "title": "Mengembangkan Riset Sosio-Hidro-Iklim",
+    "desc": "Riset interdisipliner kami mengintegrasikan hidrologi, ilmu iklim, dan pendekatan berbasis masyarakat untuk menghadapi tantangan air di berbagai skala.",
+    "item1": {
+      "title": "Basis Data Hidro-Iklim Historis & Masa Depan",
+      "desc": "Basis data komprehensif berisi data hidrologi dan iklim masa lalu serta proyeksi untuk analisis tren, pemodelan skenario, dan perencanaan jangka panjang."
+    },
+    "item2": {
+      "title": "Informatika & Teknologi Hidro-Iklim",
+      "desc": "Sistem pendukung keputusan, hidroinformatika, dan analisis berbasis GIS untuk meningkatkan ketahanan dan keamanan air."
+    },
+    "item3": {
+      "title": "Sosio-Hidro-Iklim & Teknologi Inovatif",
+      "desc": "Perangkat yang menggabungkan ilmu sosial, hidrologi, dan iklim untuk mendukung irigasi serta pengelolaan air berbasis komunitas."
+    },
+    "item4": {
+      "title": "Manajemen Berbasis Komunitas",
+      "desc": "Irigasi partisipatif, pengembangan air pedesaan, dan penguatan kapasitas untuk tata kelola yang adil dan berkelanjutan."
+    }
+  },
+  "milestones": {
+    "eyebrow": "Rencana & Tonggak Masa Depan",
+    "title": "Peta Jalan Menuju 2040",
+    "desc": "Kami menetapkan tujuan jangka panjang untuk memperkuat riset adaptif iklim dan membangun dampak yang berkelanjutan.",
+    "item1": "Menyusun Peta Jalan Riset 5 Tahun untuk irigasi adaptif iklim, ketahanan banjir & kekeringan, proyeksi iklim, serta keterkaitan air-energi-pangan.",
+    "item2": "Meluncurkan program riset bersama tahunan, publikasi internasional, naskah kebijakan, seminar, dan lokakarya bersama mitra.",
+    "item3": "Memperluas kursus singkat dan pelatihan bagi pemerintah dan masyarakat untuk memperkuat kapasitas adaptasi air & iklim.",
+    "item4": "Mewujudkan integrasi penuh antara riset, pendidikan, dan pengabdian; menjadi pusat rujukan nasional & Asia-Pasifik."
+  },
+  "team": {
+    "eyebrow": "Tim Kami",
+    "title": "Peneliti dengan beragam keahlian",
+    "desc": "Berdedikasi untuk menghadapi tantangan keberlanjutan dan ketahanan lingkungan.",
+    "role": {
+      "advisor": "Penasihat",
+      "climateHead": "Kepala Divisi Sumber Daya Iklim",
+      "waterHead": "Kepala Divisi Sumber Daya Air",
+      "research": "Divisi Riset dan Publikasi",
+      "community": "Divisi Pemberdayaan & Pengabdian Masyarakat"
+    }
+  },
+  "contact": {
+    "eyebrow": "Kontak",
+    "title": "Hubungi Kami",
+    "desc": "Kami terbuka untuk kolaborasi dalam riset, pelatihan, dan kegiatan berdampak bagi masyarakat."
+  },
+  "Header": {
+    "about": "Tentang",
+    "vision": "Visi",
+    "research": "Riset",
+    "milestones": "Pencapaian",
+    "team": "Tim",
+    "contact": "Kontak",
+    "articles": "Artikel",
+    "database": "Basis Data",
+    "cta": "Hubungi Kami"
+  },
+
+  "Articles": {
+    "readFeatured": "Baca unggulan",
+    "searchPlaceholder": "Cari judul, tag, atau penulis…",
+    "searchAriaLabel": "Cari artikel",
+    "clearSearch": "Hapus pencarian",
+    "reset": "Atur ulang",
+    "viewGrid": "Tampilan grid",
+    "viewList": "Tampilan daftar",
+    "sortBy": "Urutkan",
+    "sortNewest": "Urutkan terbaru",
+    "sortOldest": "Urutkan terlama",
+    "sortAZ": "Urutkan A ke Z",
+    "newest": "Terbaru",
+    "oldest": "Terlama",
+    "clearTags": "Bersihkan tag",
+    "showingCount": "Menampilkan {count} artikel",
+    "withTags": "dengan tag",
+    "matchingKeyword": "yang cocok dengan kata kunci",
+    "emptyState": "Tidak ada artikel yang cocok dengan filter saat ini.",
+    "clearFilters": "Hapus filter"
+  },
+  "PublicFiles": {
+    "title": "Basis Data Riset Hidro-Iklim",
+    "subtitle": "Basis data ini menyediakan akses ke dataset hidro-iklim dari berbagai platform eksternal serta hasil analisis yang diproduksi WRECC. Semua dataset tersedia dalam berbagai format (NetCDF, GeoTIFF, CSV) beserta metadata pendukung.",
+    "copyright": "Hak cipta © {year} WRECC. Semua hak dilindungi.",
+    "searchPlaceholder": "Cari judul atau deskripsi…",
+    "searchAriaLabel": "Cari file",
+    "clearSearch": "Hapus pencarian",
+    "sortBy": "Urutkan",
+    "sortNewest": "Urutkan terbaru",
+    "sortOldest": "Urutkan terlama",
+    "newest": "Terbaru",
+    "oldest": "Terlama",
+    "sortAZ": "Urutkan A ↔ Z",
+    "viewGrid": "Tampilan grid",
+    "viewList": "Tampilan daftar",
+    "published": "Terbit",
+    "draft": "Draf",
+    "updated": "Diperbarui",
+    "details": "Detail",
+    "viewDetails": "Lihat detail",
+    "showingCount": "Menampilkan {count} file",
+    "withKeyword": "dengan kata kunci \"{q}\"",
+    "emptyState": "Tidak ada file yang cocok.",
+    "clearKeyword": "Hapus kata kunci",
+    "prev": "Sebelumnya",
+    "next": "Berikutnya"
+  },
+  "Article": {
+    "breadcrumb": {
+      "home": "Beranda",
+      "articles": "Artikel"
+    },
+    "readingTime": "{minutes, plural, one {# menit baca} other {# menit baca}}",
+    "views": "{count} tayangan",
+    "openInDrive": "Buka di Google Drive",
+    "openDocument": "Buka Dokumen",
+    "missingExternalLink": "Tautan dokumen belum tersedia. Mohon lengkapi field external_link.",
+    "moreArticles": "Artikel Lain",
+    "noRelated": "Tidak ada artikel terkait.",
+    "loadError": "Gagal memuat artikel. Coba muat ulang."
+  },
+  "PublicFileDetail": {
+    "breadcrumb": {
+      "home": "Beranda",
+      "database": "Database"
+    },
+    "readingTime": "{minutes, plural, one {# menit baca} other {# menit baca}}",
+    "created": "Dibuat:",
+    "updated": "Diperbarui:",
+    "status": {
+      "label": "Status",
+      "published": "Terbit",
+      "draft": "Draf"
+    },
+    "links": "Tautan",
+    "link": "Tautan",
+    "download": "Unduh",
+    "metadata": "Metadata",
+    "back": "Kembali",
+    "quickInfo": "Info Ringkas",
+    "slug": "Slug",
+    "id": "ID",
+    "loadError": "Gagal memuat data. Coba muat ulang."
+  }
+}

@@ -1,21 +1,30 @@
+"use client";
+
 import Section from "./atoms/Section";
 import Card from "./atoms/Card";
 import { Cpu, Users } from "lucide-react";
-
+import { useTranslations } from "next-intl";
 
 export default function About() {
+  const t = useTranslations(); // same single messages file
+
   return (
-    <Section id="about" eyebrow="About" title="Data, Innovation, and Resilience" desc="A hub for integrated water–climate research, education, and outreach at Universitas Gadjah Mada.">
+    <Section
+      id="about"
+      eyebrow={t("about.eyebrow")}
+      title={t("about.title")}
+      desc={t("about.desc")}
+    >
       <div className="grid gap-6 sm:grid-cols-2">
         <Card
           icon={<Cpu className="h-6 w-6 text-emerald-700" />}
-          title="Hydro-Climate Informatics"
-          desc="Advanced models, decision-support systems, and digital platforms (incl. GIS and integrated modeling) to predict and mitigate water-related risks."
+          title={t("about.card1.title")}
+          desc={t("about.card1.desc")}
         />
         <Card
           icon={<Users className="h-6 w-6 text-emerald-700" />}
-          title="Community-Based Management"
-          desc="Empowering local communities through participatory irrigation, rural water development, and watershed conservation with training and consultancy."
+          title={t("about.card2.title")}
+          desc={t("about.card2.desc")}
         />
       </div>
     </Section>

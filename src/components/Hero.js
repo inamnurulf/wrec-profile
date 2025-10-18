@@ -2,35 +2,35 @@
 
 import Container from "./atoms/Container";
 import Pill from "./atoms/Pill";
-import { Droplets } from "lucide-react";
+import { useTranslations } from "next-intl";
 
 export default function Hero() {
+  const t = useTranslations(); // no "Hero" namespace since one file only
+
   return (
     <section className="relative overflow-hidden border-b border-slate-200/60 bg-gradient-to-br from-emerald-50 via-white to-slate-50">
       <Container>
         <div className="grid gap-8 py-16 sm:py-24 md:grid-cols-2 md:items-center">
           <div>
-            <Pill>Faculty of Agricultural Technology · UGM</Pill>
+            <Pill>{t("hero.faculty")}</Pill>
             <h1 className="mt-3 text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight">
-              Water Resources Engineering & Climate Center
+              {t("hero.title")}
             </h1>
             <p className="mt-4 max-w-xl text-slate-600">
-              We advance socio-hydro-climate understanding and co-create
-              innovative approaches to build a sustainable and resilient future
-              for water, climate, and society.
+              {t("hero.description")}
             </p>
             <div className="mt-6 flex flex-wrap gap-3">
               <a
                 href="#scope"
                 className="rounded-xl bg-emerald-600 px-4 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-emerald-700"
               >
-                Explore research
+                {t("hero.btnExplore")}
               </a>
               <a
                 href="#milestones"
                 className="rounded-xl border border-slate-200 px-4 py-2.5 text-sm font-semibold text-slate-700 hover:bg-slate-50"
               >
-                See roadmap
+                {t("hero.btnRoadmap")}
               </a>
             </div>
           </div>
@@ -39,7 +39,7 @@ export default function Hero() {
               <div className="grid h-full place-items-center rounded-xl bg-gradient-to-br from-emerald-100 to-slate-100">
                 <img
                   src="/hero-image.webp"
-                  alt="Hero Image"
+                  alt={t("hero.imageAlt")}
                   className="h-full rounded-lg object-cover"
                 />
               </div>

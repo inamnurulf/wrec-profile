@@ -1,37 +1,51 @@
+"use client";
+
 import Section from "./atoms/Section";
 import Card from "./atoms/Card";
 import { CloudSun, Cpu, Droplets, Users } from "lucide-react";
-
+import { useTranslations } from "next-intl";
 
 export default function ResearchScope() {
+  const t = useTranslations();
+
   const items = [
     {
-      icon: <CloudSun className="h-6 w-6 text-emerald-700" />, 
-      title: "Historical & Future Hydro‑Climate Database",
-      desc: "A comprehensive database of past and projected hydrological and climate data for trend analysis, scenario modeling, and long‑term planning.",
+      icon: <CloudSun className="h-6 w-6 text-emerald-700" />,
+      title: t("scope.item1.title"),
+      desc: t("scope.item1.desc"),
     },
     {
-      icon: <Cpu className="h-6 w-6 text-emerald-700" />, 
-      title: "Hydro‑Climate Informatics & Technology",
-      desc: "Decision‑support systems, hydroinformatics, and GIS‑based analysis to improve water security and resilience.",
+      icon: <Cpu className="h-6 w-6 text-emerald-700" />,
+      title: t("scope.item2.title"),
+      desc: t("scope.item2.desc"),
     },
     {
-      icon: <Droplets className="h-6 w-6 text-emerald-700" />, 
-      title: "Socio‑Hydro‑Climate & Innovative Technologies",
-      desc: "Tools that combine social, hydrological, and climate knowledge to support irrigation and community‑based water management.",
+      icon: <Droplets className="h-6 w-6 text-emerald-700" />,
+      title: t("scope.item3.title"),
+      desc: t("scope.item3.desc"),
     },
     {
-      icon: <Users className="h-6 w-6 text-emerald-700" />, 
-      title: "Community‑Based Management",
-      desc: "Participatory irrigation, rural water development, and capacity building for equitable governance and sustainability.",
+      icon: <Users className="h-6 w-6 text-emerald-700" />,
+      title: t("scope.item4.title"),
+      desc: t("scope.item4.desc"),
     },
   ];
 
   return (
-    <Section id="scope" eyebrow="Research Scope" title="Advancing Socio‑Hydro‑Climate Research">
+    <Section
+      id="scope"
+      eyebrow={t("scope.eyebrow")}
+      title={t("scope.title")}
+      desc={t("scope.desc")}
+    >
       <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
         {items.map((item) => (
-          <Card key={item.title} icon={item.icon} title={item.title} desc={item.desc} />
+          <Card
+            key={item.title}
+            icon={item.icon}
+            title={item.title}
+            desc={item.desc}
+          />
         ))}
       </div>
     </Section>

@@ -11,7 +11,8 @@ import {
 } from "lucide-react";
 import ReactMarkdown from "react-markdown";
 import { useParams, useRouter } from "next/navigation";
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
+import { useLocale, useTranslations } from "next-intl";
 
 import RelatedItemCard from "@/components/atoms/RelatedItemCard";
 import ShareButtons from "@/components/atoms/ShareButton";
@@ -41,12 +42,6 @@ function useReadingProgress() {
 }
 
 const wordCount = (s = "") => String(s).split(/\s+/).filter(Boolean).length;
-const fmtID = (iso) =>
-  iso
-    ? new Intl.DateTimeFormat("id-ID", { dateStyle: "full" }).format(
-        new Date(iso)
-      )
-    : "";
 
 const TagPills = ({ tags = [] }) => (
   <div className="flex flex-wrap gap-2">
@@ -69,7 +64,15 @@ export default function ArticleDetailPage() {
   const progress = useReadingProgress();
   const router = useRouter();
   const { slug } = useParams();
-  const [isGenerating, setIsGenerating] = useState(false);
+  const t = useTranslations("Article");
+  const locale = useLocale();
+
+  const fmtDate = useMemo(
+    () => (iso) =>
+      iso ? new Intl.DateTimeFormat(locale, { dateStyle: "full" }).format(new Date(iso)) : "",
+    [locale]
+  );
+  const fmtNumber = (n) => n.toLocaleString(locale);
 
   const { data: article, isLoading, isError } = useGetArticleBySlugQuery(slug);
 
@@ -83,7 +86,6 @@ export default function ArticleDetailPage() {
   const source = useMemo(() => {
     const s = (article?.source || "").toLowerCase();
     if (s === "inline" || s === "drive") return s;
-    // Fallback: infer drive when external_link exists
     return article?.external_link ? "drive" : "inline";
   }, [article]);
 
@@ -93,13 +95,12 @@ export default function ArticleDetailPage() {
       : null;
   }, [source, article]);
 
-  // Reading time: for drive articles, base on summary only (no body text)
+  // Reading time
   const totalText = useMemo(() => {
     if (!article) return "";
-    const parts =
-      source === "drive"
-        ? [article.summary]
-        : [article.summary, article.content].filter(Boolean);
+    const parts = source === "drive"
+      ? [article.summary]
+      : [article.summary, article.content].filter(Boolean);
     return parts.join(" ");
   }, [article, source]);
 
@@ -115,7 +116,7 @@ export default function ArticleDetailPage() {
 
   const selectedTagIds = useMemo(() => {
     const names = article?.tags ?? [];
-    return names.map((n) => tagSlugToId.get(slugify(n))).filter(Boolean);
+    return names.map((n) => tagSlugToId.get(slugify(n))).filter(Boolean)
   }, [article, tagSlugToId]);
 
   const { data: relatedResp } = useListRelatedQuery(
@@ -133,10 +134,10 @@ export default function ArticleDetailPage() {
       .map((x) => ({
         title: x.title,
         thumb: x.hero || x.cover || "/placeholder.jpg",
-        date: x.published_at ? fmtID(x.published_at) : "",
+        date: x.published_at ? fmtDate(x.published_at) : "",
         slug: x.slug,
       }));
-  }, [relatedResp, article]);
+  }, [relatedResp, article, fmtDate]);
 
   if (isLoading) {
     return (
@@ -150,7 +151,7 @@ export default function ArticleDetailPage() {
   if (isError) {
     return (
       <div className="max-w-3xl mx-auto p-6 text-red-600">
-        Gagal memuat artikel. Coba muat ulang.
+        {t("loadError")}
       </div>
     );
   }
@@ -168,11 +169,11 @@ export default function ArticleDetailPage() {
         <div className="max-w-7xl mx-auto px-4 py-8">
           <nav className="text-sm text-gray-500 flex items-center gap-2">
             <Link href="/" className="hover:text-gray-700">
-              Beranda
+              {t("breadcrumb.home")}
             </Link>
             <ChevronRight className="w-4 h-4" />
             <Link href="/articles" className="hover:text-gray-700">
-              Artikel
+              {t("breadcrumb.articles")}
             </Link>
             <ChevronRight className="w-4 h-4" />
             <span className="text-gray-700">{article.title}</span>
@@ -184,12 +185,13 @@ export default function ArticleDetailPage() {
 
           <div className="mt-4 flex flex-wrap items-center gap-4 text-gray-600">
             <div className="inline-flex items-center gap-2">
-              <Clock className="w-4 h-4" /> {minutes} menit baca
+              <Clock className="w-4 h-4" />
+              {t("readingTime", { minutes })}
             </div>
             {typeof article.views === "number" && (
               <div className="inline-flex items-center gap-2">
-                <Eye className="w-4 h-4" />{" "}
-                {article.views.toLocaleString("id-ID")} views
+                <Eye className="w-4 h-4" />
+                {t("views", { count: fmtNumber(article.views) })}
               </div>
             )}
             <TagPills tags={article.tags} />
@@ -214,25 +216,28 @@ export default function ArticleDetailPage() {
           {/* Author */}
           {(article.author || article.published_at) && (
             <div className="flex items-center gap-3 p-4 bg-white rounded-2xl shadow">
-              {article.author?.avatar && (
+              {/* Handle author string or object w/ avatar */}
+              {"avatar" in (article.author ?? {}) && article.author?.avatar && (
                 <img
                   src={article.author.avatar}
-                  alt={article.author || "author"}
+                  alt={article.author?.name || "author"}
                   className="w-12 h-12 rounded-full object-cover"
                 />
               )}
               <div>
                 <div className="font-semibold flex items-center gap-2">
                   <User className="w-4 h-4 text-gray-500" />
-                  {article.author || "—"}
+                  {"name" in (article.author ?? {})
+                    ? article.author?.name
+                    : (article.author) || "—"}
                 </div>
-                {article.author?.role && (
+                {"role" in (article.author ?? {}) && article.author?.role && (
                   <p className="text-sm text-gray-500">{article.author.role}</p>
                 )}
               </div>
               {article.published_at && (
                 <div className="ml-auto flex items-center gap-2 text-sm text-gray-500">
-                  <Calendar className="w-4 h-4" /> {fmtID(article.published_at)}
+                  <Calendar className="w-4 h-4" /> {fmtDate(article.published_at)}
                 </div>
               )}
             </div>
@@ -241,17 +246,17 @@ export default function ArticleDetailPage() {
           {/* Share & Download Buttons */}
           <div className="my-6 flex items-center gap-4">
             <ShareButtons />
-            <ArticlePdfButton article={article} minutes={minutes} fmtID={fmtID} />
+            <ArticlePdfButton article={article} minutes={minutes} fmtID={fmtDate} />
             {source === "drive" && article.external_link && (
               <a
                 href={article.external_link}
                 target="_blank"
                 rel="noreferrer"
                 className="inline-flex items-center gap-2 rounded-full border px-3 py-1.5 text-sm hover:bg-gray-50"
-                title="Buka di Google Drive"
+                title={t("openInDrive")}
               >
                 <ExternalLink className="w-4 h-4" />
-                Buka Dokumen
+                {t("openDocument")}
               </a>
             )}
           </div>
@@ -266,7 +271,7 @@ export default function ArticleDetailPage() {
             article.external_link ? (
               <div className="relative w-full h-[78vh] rounded-xl overflow-hidden border border-gray-200 shadow">
                 <iframe
-                  src={previewURL}
+                  src={previewURL ?? undefined}
                   className="absolute inset-0 h-full w-full"
                   allow="autoplay"
                   title="Drive Preview"
@@ -274,7 +279,7 @@ export default function ArticleDetailPage() {
               </div>
             ) : (
               <div className="rounded-md border border-amber-300 bg-amber-50 p-3 text-amber-800">
-                Tautan dokumen belum tersedia. Mohon lengkapi <b>external_link</b>.
+                {t("missingExternalLink")}
               </div>
             )
           ) : (
@@ -372,10 +377,12 @@ export default function ArticleDetailPage() {
         <aside className="md:col-span-4 space-y-6 md:sticky md:top-20 self-start">
           {/* Related */}
           <div className="bg-white rounded-2xl shadow p-5">
-            <div className="text-sm font-semibold text-gray-700 mb-3">Artikel Lain</div>
+            <div className="text-sm font-semibold text-gray-700 mb-3">
+              {t("moreArticles")}
+            </div>
             <ul className="space-y-4">
               {relatedItems.length === 0 ? (
-                <li className="text-sm text-gray-500">Tidak ada artikel terkait.</li>
+                <li className="text-sm text-gray-500">{t("noRelated")}</li>
               ) : (
                 relatedItems.map((it, idx) => <RelatedItemCard key={idx} item={it} />)
               )}
