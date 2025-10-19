@@ -67,7 +67,8 @@
       "advisor": "Advisor",
       "climateHead": "Head of Climate Resources Division",
       "waterHead": "Head of Water Resources Division",
-      "research": "Research and Publication Division",
+      "climateMember": "Member of Climate Resources Division",
+      "waterMember": "Member of Water Resources Division",
       "community": "Community Engagement & Outreach Division"
     }
   },

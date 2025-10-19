@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useEffect } from "react";
 import Hero from "@/components/Hero";
 import About from "@/components/About";
 import Vision from "@/components/Vision";
@@ -10,8 +10,17 @@ import Team from "@/components/Teams";
 import Contact from "@/components/Contact";
 import SectionDivider from "@/components/atoms/SectionDevider";
 import OurGallery from "@/components/OurGallery";
+import AOS from "aos";
+import "aos/dist/aos.css";
 
 export default function LandingPage() {
+    useEffect(() => {
+    AOS.init({
+      duration: 800,
+      once: true,
+      easing: "ease-in-out",
+    });
+  }, []);
   return (
     <main className="min-h-screen bg-gradient-to-b from-slate-50 to-white text-slate-900 max-w-screen overflow-x-hidden">
       <Hero />

@@ -37,15 +37,22 @@ export default function ResearchScope() {
       eyebrow={t("scope.eyebrow")}
       title={t("scope.title")}
       desc={t("scope.desc")}
+      data-aos="fade-up"
     >
       <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-        {items.map((item) => (
-          <Card
+        {items.map((item, i) => (
+          <div
             key={item.title}
-            icon={item.icon}
-            title={item.title}
-            desc={item.desc}
-          />
+            data-aos="fade-up"
+            data-aos-delay={i * 150} // stagger delay: 0, 150, 300, 450
+            data-aos-duration="800"
+          >
+            <Card
+              icon={item.icon}
+              title={item.title}
+              desc={item.desc}
+            />
+          </div>
         ))}
       </div>
     </Section>

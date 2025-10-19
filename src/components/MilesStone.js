@@ -20,11 +20,19 @@ export default function Milestones() {
       eyebrow={t("milestones.eyebrow")}
       title={t("milestones.title")}
       desc={t("milestones.desc")}
+      data-aos="fade-up"
     >
-      <ol className="relative border-s border-slate-200 pl-6">
-        {roadmap.map((m) => (
-          <li key={m.year} className="mb-8">
-            <div className="absolute -left-2 mt-1 flex h-4 w-4 items-center justify-center rounded-full bg-emerald-600" />
+      <ul className="relative list-none border-s border-slate-200 pl-6">
+        {roadmap.map((m, i) => (
+          <li
+            key={m.year}
+            className="mb-8 list-none" 
+            data-aos="fade-up"
+            data-aos-delay={i * 150}
+            data-aos-duration="800"
+            
+          >
+            {/* <div className="absolute -left-2 mt-1 flex h-4 w-4 items-center justify-center rounded-full bg-emerald-600" /> */}
             <div className="flex items-start gap-3">
               <CalendarCheck className="mt-0.5 h-5 w-5 text-emerald-700" />
               <div>
@@ -34,7 +42,7 @@ export default function Milestones() {
             </div>
           </li>
         ))}
-      </ol>
+      </ul>
     </Section>
   );
 }

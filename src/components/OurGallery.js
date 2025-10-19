@@ -68,7 +68,7 @@ export default function OurGallery({ id = "gallery", className }) {
       )}
       aria-label={t("title")}
     >
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8" data-aos="fade-up">
         <header className="mx-auto max-w-2xl text-center">
           <Pill>WRECC</Pill>
           <h2 className="mt-3  tracking-tight text-2xl sm:text-3xl md:text-4xl font-bold">

@@ -23,7 +23,7 @@ export default function Hero() {
       <div className="relative z-10">
         <Container>
           <div className="grid gap-8 py-16 sm:py-24 md:grid-cols-2 md:items-center">
-            <div>
+            <div data-aos="fade-right">
               <Pill>{t("hero.faculty")}</Pill>
               <h1 className="mt-3 text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight">
                 {t("hero.title")}
@@ -47,7 +47,7 @@ export default function Hero() {
               </div>
             </div>
 
-            <div className="relative">
+            <div className="relative" data-aos="fade-left">
               <div className="aspect-[4/3] w-full rounded-2xl border border-slate-200 bg-white p-4 shadow-sm">
                 <div className="grid h-full place-items-center rounded-xl bg-gradient-to-br from-emerald-100 to-slate-100">
                   <img

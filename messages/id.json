@@ -67,7 +67,8 @@
       "advisor": "Penasihat",
       "climateHead": "Kepala Divisi Sumber Daya Iklim",
       "waterHead": "Kepala Divisi Sumber Daya Air",
-      "research": "Divisi Riset dan Publikasi",
+      "climateMember": "Anggota Divisi Sumber Daya Iklim",
+      "waterMember": "Anggota Divisi Sumber Daya Air",
       "community": "Divisi Pemberdayaan & Pengabdian Masyarakat"
     }
   },
@@ -184,7 +185,7 @@
       "fieldTeam": "Tim lapangan saat persiapan lahan di lokasi riset."
     }
   },
-   "ArticleCard": {
+  "ArticleCard": {
     "readMore": "Baca selengkapnya",
     "bookmark": "Simpan",
     "unknownAuthor": "Tanpa nama"

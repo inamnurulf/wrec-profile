@@ -13,22 +13,33 @@ export default function Contact() {
       eyebrow={t("contact.eyebrow")}
       title={t("contact.title")}
       desc={t("contact.desc")}
+      data-aos="fade-up"
     >
       <div className="grid gap-6 sm:grid-cols-3">
         <a
           href="mailto:wrecc@ugm.mail.ac.id"
           className="flex items-center gap-3 rounded-2xl border border-slate-200 bg-white p-6 shadow-sm hover:shadow-md"
+          data-aos="fade-up"
+          data-aos-delay="100"
         >
           <Mail className="h-5 w-5 text-emerald-700" />
           <span>wrecc@ugm.mail.ac.id</span>
         </a>
 
-        <div className="flex items-center gap-3 rounded-2xl border border-slate-200 bg-white p-6 shadow-sm hover:shadow-md">
+        <div
+          className="flex items-center gap-3 rounded-2xl border border-slate-200 bg-white p-6 shadow-sm hover:shadow-md"
+          data-aos="fade-up"
+          data-aos-delay="200"
+        >
           <Phone className="h-5 w-5 text-emerald-700" />
           <span>+62 8817412516</span>
         </div>
 
-        <div className="flex items-center gap-3 rounded-2xl border border-slate-200 bg-white p-6 shadow-sm hover:shadow-md">
+        <div
+          className="flex items-center gap-3 rounded-2xl border border-slate-200 bg-white p-6 shadow-sm hover:shadow-md"
+          data-aos="fade-up"
+          data-aos-delay="300"
+        >
           <Globe className="h-5 w-5 text-emerald-700" />
           <span>wrecc.tp.ugm.ac.id</span>
         </div>
