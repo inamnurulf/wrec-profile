@@ -69,7 +69,11 @@ export default function ArticleDetailPage() {
 
   const fmtDate = useMemo(
     () => (iso) =>
-      iso ? new Intl.DateTimeFormat(locale, { dateStyle: "full" }).format(new Date(iso)) : "",
+      iso
+        ? new Intl.DateTimeFormat(locale, { dateStyle: "full" }).format(
+            new Date(iso)
+          )
+        : "",
     [locale]
   );
   const fmtNumber = (n) => n.toLocaleString(locale);
@@ -98,9 +102,10 @@ export default function ArticleDetailPage() {
   // Reading time
   const totalText = useMemo(() => {
     if (!article) return "";
-    const parts = source === "drive"
-      ? [article.summary]
-      : [article.summary, article.content].filter(Boolean);
+    const parts =
+      source === "drive"
+        ? [article.summary]
+        : [article.summary, article.content].filter(Boolean);
     return parts.join(" ");
   }, [article, source]);
 
@@ -116,7 +121,7 @@ export default function ArticleDetailPage() {
 
   const selectedTagIds = useMemo(() => {
     const names = article?.tags ?? [];
-    return names.map((n) => tagSlugToId.get(slugify(n))).filter(Boolean)
+    return names.map((n) => tagSlugToId.get(slugify(n))).filter(Boolean);
   }, [article, tagSlugToId]);
 
   const { data: relatedResp } = useListRelatedQuery(
@@ -150,9 +155,7 @@ export default function ArticleDetailPage() {
   }
   if (isError) {
     return (
-      <div className="max-w-3xl mx-auto p-6 text-red-600">
-        {t("loadError")}
-      </div>
+      <div className="max-w-3xl mx-auto p-6 text-red-600">{t("loadError")}</div>
     );
   }
   if (!article) return null;
@@ -217,27 +220,26 @@ export default function ArticleDetailPage() {
           {(article.author || article.published_at) && (
             <div className="flex items-center gap-3 p-4 bg-white rounded-2xl shadow">
               {/* Handle author string or object w/ avatar */}
-              {"avatar" in (article.author ?? {}) && article.author?.avatar && (
+              {article.author?.avatar && (
                 <img
                   src={article.author.avatar}
-                  alt={article.author?.name || "author"}
+                  alt={article.author || "author"}
                   className="w-12 h-12 rounded-full object-cover"
                 />
               )}
               <div>
                 <div className="font-semibold flex items-center gap-2">
                   <User className="w-4 h-4 text-gray-500" />
-                  {"name" in (article.author ?? {})
-                    ? article.author?.name
-                    : (article.author) || "—"}
+                  {article.author || "—"}
                 </div>
-                {"role" in (article.author ?? {}) && article.author?.role && (
+                {article.author?.role && (
                   <p className="text-sm text-gray-500">{article.author.role}</p>
                 )}
               </div>
               {article.published_at && (
                 <div className="ml-auto flex items-center gap-2 text-sm text-gray-500">
-                  <Calendar className="w-4 h-4" /> {fmtDate(article.published_at)}
+                  <Calendar className="w-4 h-4" />{" "}
+                  {fmtDate(article.published_at)}
                 </div>
               )}
             </div>
@@ -246,7 +248,11 @@ export default function ArticleDetailPage() {
           {/* Share & Download Buttons */}
           <div className="my-6 flex items-center gap-4">
             <ShareButtons />
-            <ArticlePdfButton article={article} minutes={minutes} fmtID={fmtDate} />
+            <ArticlePdfButton
+              article={article}
+              minutes={minutes}
+              fmtID={fmtDate}
+            />
             {source === "drive" && article.external_link && (
               <a
                 href={article.external_link}
@@ -306,7 +312,10 @@ export default function ArticleDetailPage() {
                       />
                     ),
                     p: ({ node, ...props }) => (
-                      <div className="text-gray-700 leading-8 mb-4" {...props} />
+                      <div
+                        className="text-gray-700 leading-8 mb-4"
+                        {...props}
+                      />
                     ),
                     ul: ({ node, ...props }) => (
                       <ul
@@ -320,7 +329,9 @@ export default function ArticleDetailPage() {
                         {...props}
                       />
                     ),
-                    li: ({ node, ...props }) => <li className="ml-2" {...props} />,
+                    li: ({ node, ...props }) => (
+                      <li className="ml-2" {...props} />
+                    ),
                     blockquote: ({ node, ...props }) => (
                       <blockquote
                         className="border-l-4 border-emerald-400 pl-4 italic text-gray-600 my-4"
@@ -339,10 +350,16 @@ export default function ArticleDetailPage() {
                         </pre>
                       ),
                     a: ({ node, ...props }) => (
-                      <a className="text-emerald-600 hover:underline font-medium" {...props} />
+                      <a
+                        className="text-emerald-600 hover:underline font-medium"
+                        {...props}
+                      />
                     ),
                     img: ({ node, ...props }) => (
-                      <img className="rounded-xl shadow my-6 max-w-full" {...props} />
+                      <img
+                        className="rounded-xl shadow my-6 max-w-full"
+                        {...props}
+                      />
                     ),
                     table: ({ node, ...props }) => (
                       <table
@@ -351,19 +368,32 @@ export default function ArticleDetailPage() {
                       />
                     ),
                     thead: ({ node, ...props }) => (
-                      <thead className="bg-gray-100 text-gray-700 font-semibold" {...props} />
+                      <thead
+                        className="bg-gray-100 text-gray-700 font-semibold"
+                        {...props}
+                      />
                     ),
                     tbody: ({ node, ...props }) => (
                       <tbody className="divide-y divide-gray-200" {...props} />
                     ),
-                    tr: ({ node, ...props }) => <tr className="border-b last:border-0" {...props} />,
+                    tr: ({ node, ...props }) => (
+                      <tr className="border-b last:border-0" {...props} />
+                    ),
                     th: ({ node, ...props }) => (
-                      <th className="border border-gray-200 px-3 py-2 text-left" {...props} />
+                      <th
+                        className="border border-gray-200 px-3 py-2 text-left"
+                        {...props}
+                      />
                     ),
                     td: ({ node, ...props }) => (
-                      <td className="border border-gray-200 px-3 py-2" {...props} />
+                      <td
+                        className="border border-gray-200 px-3 py-2"
+                        {...props}
+                      />
                     ),
-                    hr: ({ node, ...props }) => <hr className="my-8 border-gray-200" {...props} />,
+                    hr: ({ node, ...props }) => (
+                      <hr className="my-8 border-gray-200" {...props} />
+                    ),
                   }}
                 >
                   {article.content}
@@ -384,7 +414,9 @@ export default function ArticleDetailPage() {
               {relatedItems.length === 0 ? (
                 <li className="text-sm text-gray-500">{t("noRelated")}</li>
               ) : (
-                relatedItems.map((it, idx) => <RelatedItemCard key={idx} item={it} />)
+                relatedItems.map((it, idx) => (
+                  <RelatedItemCard key={idx} item={it} />
+                ))
               )}
             </ul>
           </div>

@@ -182,5 +182,10 @@
       "labAnalysis": "Measuring soil and water samples in the lab.",
       "fieldTeam": "Field team during soil preparation at the research site."
     }
+  },
+  "ArticleCard": {
+    "readMore": "Read more",
+    "bookmark": "Bookmark",
+    "unknownAuthor": "Unknown"
   }
 }

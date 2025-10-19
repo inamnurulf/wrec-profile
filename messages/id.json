@@ -183,5 +183,10 @@
       "labAnalysis": "Pengukuran sampel tanah dan air di laboratorium.",
       "fieldTeam": "Tim lapangan saat persiapan lahan di lokasi riset."
     }
+  },
+   "ArticleCard": {
+    "readMore": "Baca selengkapnya",
+    "bookmark": "Simpan",
+    "unknownAuthor": "Tanpa nama"
   }
 }
