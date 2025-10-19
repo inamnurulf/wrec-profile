@@ -172,5 +172,16 @@
     "slug": "Slug",
     "id": "ID",
     "loadError": "Gagal memuat data. Coba muat ulang."
+  },
+  "gallery": {
+    "title": "Galeri Kami",
+    "subtitle": "Kegiatan lapangan, dasbor, dan momen di balik layar WRECC",
+    "captions": {
+      "tractorClose": "Kalibrasi alat traktor untuk operasi lapangan.",
+      "soilSampling": "Pengambilan sampel tanah di area hutan.",
+      "waterMonitoring": "Pencatatan kualitas air di lokasi.",
+      "labAnalysis": "Pengukuran sampel tanah dan air di laboratorium.",
+      "fieldTeam": "Tim lapangan saat persiapan lahan di lokasi riset."
+    }
   }
 }

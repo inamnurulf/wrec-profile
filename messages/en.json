@@ -171,5 +171,16 @@
     "slug": "Slug",
     "id": "ID",
     "loadError": "Failed to load data. Please retry."
+  },
+  "gallery": {
+    "title": "Our Gallery",
+    "subtitle": "Fieldwork, dashboards, and behind-the-scenes at WRECC",
+    "captions": {
+      "tractorClose": "Calibrating tractor tools for field operations.",
+      "soilSampling": "Collecting soil samples in forest terrain.",
+      "waterMonitoring": "Recording water quality data on site.",
+      "labAnalysis": "Measuring soil and water samples in the lab.",
+      "fieldTeam": "Field team during soil preparation at the research site."
+    }
   }
 }
