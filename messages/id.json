@@ -62,14 +62,16 @@
   "team": {
     "eyebrow": "Tim Kami",
     "title": "Peneliti dengan beragam keahlian",
-    "desc": "Berdedikasi untuk menghadapi tantangan keberlanjutan dan ketahanan lingkungan.",
+    "desc": "Tim kami terdiri dari peneliti dengan beragam keahlian, dedikasi, dan pengalaman luas dalam penelitian serta pengembangan untuk menghadapi tantangan global di bidang keberlanjutan dan ketahanan lingkungan.",
     "role": {
       "advisor": "Penasihat",
       "climateHead": "Kepala Divisi Sumber Daya Iklim",
       "waterHead": "Kepala Divisi Sumber Daya Air",
       "climateMember": "Anggota Divisi Sumber Daya Iklim",
       "waterMember": "Anggota Divisi Sumber Daya Air",
-      "community": "Divisi Pemberdayaan & Pengabdian Masyarakat"
+      "community": "Divisi Pemberdayaan & Pengabdian Masyarakat",
+      "ruralExpert": "Environmental and Rural Development Expert",
+      "irrigationExpert": "Irrigation O&M Expert"
     }
   },
   "contact": {

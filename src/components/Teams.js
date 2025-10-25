@@ -7,9 +7,11 @@ export default function Team() {
   const t = useTranslations();
 
   const members = [
-    { name: "Prof. Sigit Supadmo Arif", role: t("team.role.advisor") },
+    { name: "Prof. Sigit Supadmo Arif, Ph.D", role: t("team.role.advisor") },
     { name: "Muhamad Khoiru Zaki, Ph.D", role: t("team.role.climateHead") },
     { name: "Hanggar Ganara Mawandha, Ph.D", role: t("team.role.waterHead") },
+    { name: "Dr. Dede Sulaeman", role: t("team.role.ruralExpert") },
+    { name: "Ir. Djito Sp1", role: t("team.role.irrigationExpert") },
     { name: "Yunita Nur Azizah, S.T.P", role: t("team.role.climateMember") },
     { name: "Nindya Marsya Larasati, S.Sos", role: t("team.role.community") },
     { name: "Issiami Nursafa, S.T.P", role: t("team.role.waterMember") },

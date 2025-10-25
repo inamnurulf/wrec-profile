@@ -62,14 +62,16 @@
   "team": {
     "eyebrow": "Meet Our Team",
     "title": "Researchers with diverse expertise",
-    "desc": "Dedicated to addressing sustainability and environmental resilience challenges.",
+    "desc": "Our team consists of researchers with diverse expertise, dedication & extensive experience in research and development to address global challenges in sustainability and environmental resilience",
     "role": {
       "advisor": "Advisor",
       "climateHead": "Head of Climate Resources Division",
       "waterHead": "Head of Water Resources Division",
       "climateMember": "Member of Climate Resources Division",
       "waterMember": "Member of Water Resources Division",
-      "community": "Community Engagement & Outreach Division"
+      "community": "Community Engagement & Outreach Division",
+      "ruralExpert": "Environmental and Rural Development Expert",
+      "irrigationExpert": "Irrigation O&M Expert"
     }
   },
   "contact": {
