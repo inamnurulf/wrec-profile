@@ -24,29 +24,29 @@
     "eyebrow": "Visi Kami",
     "title": "Kepemimpinan Sosio-Hidro-Iklim untuk Ketahanan",
     "desc": "Water Resources Engineering and Climate Center (WRECC)berkomitmen untuk memajukan penelitian ilmiah, inovasi teknologi, serta integrasi kebijakan guna mencapai ketahanan air dan iklim yang berkelanjutan di berbagai wilayah.",
-  "point1": "Penelitian, pendidikan, dan pengembangan kapasitas. Calon pemecah masalah masa depan dalam isu-isu terpadu tentang air, iklim, dan keadilan sosial. Pertukaran ide di antara para ilmuwan dan peserta pelatihan melalui pusat Socio-Hydro-Climate Engineering yang mengintegrasikan ilmu alam dan sosial, kesehatan masyarakat, desain, rekayasa, dan tata kelola.",
+    "point1": "Penelitian, pendidikan, dan pengembangan kapasitas. Calon pemecah masalah masa depan dalam isu-isu terpadu tentang air, iklim, dan keadilan sosial. Pertukaran ide di antara para ilmuwan dan peserta pelatihan melalui pusat Socio-Hydro-Climate Engineering yang mengintegrasikan ilmu alam dan sosial, kesehatan masyarakat, desain, rekayasa, dan tata kelola.",
     "point2": "Kemitraan inovatif. Membangun jaringan kolaboratif antara akademisi, pemerintah, industri, dan masyarakat sipil untuk menerjemahkan penelitian menjadi solusi nyata.",
     "point3": "Pembangunan berkelanjutan dan inklusif. Menyelaraskan seluruh penelitian dan inovasi dengan Tujuan Pembangunan Berkelanjutan (SDGs)."
   },
   "scope": {
     "eyebrow": "Ruang Lingkup Riset",
     "title": "Mengembangkan Riset Sosio-Hidro-Iklim",
-    "desc": "Riset interdisipliner kami mengintegrasikan hidrologi, ilmu iklim, dan pendekatan berbasis masyarakat untuk menghadapi tantangan air di berbagai skala.",
+    "desc": "Riset interdisipliner kami mengintegrasikan hidrologi, ilmu iklim, dan pendekatan berbasis komunitas untuk menghadapi tantangan air di berbagai skala.",
     "item1": {
-      "title": "Basis Data Hidro-Iklim Historis & Masa Depan",
-      "desc": "Basis data komprehensif berisi data hidrologi dan iklim masa lalu serta proyeksi untuk analisis tren, pemodelan skenario, dan perencanaan jangka panjang."
+      "title": "Basis Data Hidro-Iklim Historis dan Masa Depan",
+      "desc": "Basis data komprehensif berisi data hidrologi dan iklim masa lalu serta proyeksi yang mendukung analisis tren, pemodelan skenario, dan perencanaan jangka panjang untuk pengelolaan air berkelanjutan dan adaptasi iklim."
     },
     "item2": {
-      "title": "Informatika & Teknologi Hidro-Iklim",
-      "desc": "Sistem pendukung keputusan, hidroinformatika, dan analisis berbasis GIS untuk meningkatkan ketahanan dan keamanan air."
+      "title": "Sosio-Hidro-Iklim dan Teknologi Inovatif",
+      "desc": "Fokus penelitian dan pengembangan pada perangkat inovatif yang mengintegrasikan pengetahuan sosial, hidrologi, dan iklim untuk meningkatkan keamanan air, memperkuat ketahanan iklim, serta mendukung irigasi berkelanjutan dan pengelolaan air berbasis komunitas."
     },
     "item3": {
-      "title": "Sosio-Hidro-Iklim & Teknologi Inovatif",
-      "desc": "Perangkat yang menggabungkan ilmu sosial, hidrologi, dan iklim untuk mendukung irigasi serta pengelolaan air berbasis komunitas."
+      "title": "Informatika dan Teknologi Hidro-Iklim",
+      "desc": "Pengembangan model lanjutan dan platform digital difokuskan pada pengelolaan data air, iklim, dan lingkungan. Ini mencakup hidroinformatika, analisis GIS, dan pemodelan terintegrasi untuk memprediksi serta mengurangi risiko terkait air."
     },
     "item4": {
       "title": "Manajemen Berbasis Komunitas",
-      "desc": "Irigasi partisipatif, pengembangan air pedesaan, dan penguatan kapasitas untuk tata kelola yang adil dan berkelanjutan."
+      "desc": "Memberdayakan komunitas untuk mengelola bersama sumber daya air melalui irigasi partisipatif, pengembangan air pedesaan, dan konservasi daerah aliran sungai, sekaligus membangun kapasitas dan meningkatkan tata kelola demi sistem air dan iklim yang tangguh dan berkelanjutan."
     }
   },
   "milestones": {

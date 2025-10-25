@@ -51,6 +51,7 @@ export default function ResearchScope() {
               icon={item.icon}
               title={item.title}
               desc={item.desc}
+              className="h-full"
             />
           </div>
         ))}

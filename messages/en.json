@@ -24,7 +24,7 @@
     "eyebrow": "Our Vision",
     "title": "Socio-Hydro-Climate leadership for resilience",
     "desc": "Water Resources Engineering and Climate Center (WRECC) is committed to advancing scientific research, technological innovation, and policy integration to achieve sustainable water and climate resilience across regions.",
- "point1": "Research, education, and capacity building. Future problem-solvers on integrated water, climate, and social equity issues. The exchange of ideas among scholars and trainees through a Socio-Hydro-Climate Engineering hub that integrates natural and social sciences, public health, design, engineering, and governance.",
+    "point1": "Research, education, and capacity building. Future problem-solvers on integrated water, climate, and social equity issues. The exchange of ideas among scholars and trainees through a Socio-Hydro-Climate Engineering hub that integrates natural and social sciences, public health, design, engineering, and governance.",
     "point2": "Innovation partnerships. Build collaborative networks among academia, government, industry, and civil society to translate research into real-world solutions.",
     "point3": "Sustainable and inclusive development. Align all research and innovation with the Sustainable Development Goals (SDGs)."
   },
@@ -33,20 +33,20 @@
     "title": "Advancing Socio-Hydro-Climate Research",
     "desc": "Our interdisciplinary research integrates hydrology, climate science, and community-based approaches to tackle water challenges at every scale.",
     "item1": {
-      "title": "Historical & Future Hydro-Climate Database",
-      "desc": "A comprehensive database of past and projected hydrological and climate data for trend analysis, scenario modeling, and long-term planning."
+      "title": "Historical and Future Hydro-Climate Database",
+      "desc": "A comprehensive database of past and projected hydrological and climate data supports trend analysis, scenario modeling, and long-term planning for sustainable water management and climate adaptation."
     },
     "item2": {
-      "title": "Hydro-Climate Informatics & Technology",
-      "desc": "Decision-support systems, hydroinformatics, and GIS-based analysis to improve water security and resilience."
+      "title": "Sosio-Hydro-Climate and Innovative Technologies",
+      "desc": "Research and development focus on innovative tools that integrate social, hydrological, and climate knowledge to improve water security, enhance climate resilience, and support sustainable irrigation and community water management."
     },
     "item3": {
-      "title": "Socio-Hydro-Climate & Innovative Technologies",
-      "desc": "Tools that combine social, hydrological, and climate knowledge to support irrigation and community-based water management."
+      "title": "Hydro-Climate Informatics and Technology",
+      "desc": "Development of advanced models and digital platforms focuses on managing water, climate, and environmental data. This includes hydroinformatics, GIS analysis, and integrated modeling to predict and mitigate water-related risks."
     },
     "item4": {
       "title": "Community-Based Management",
-      "desc": "Participatory irrigation, rural water development, and capacity building for equitable governance and sustainability."
+      "desc": "To empower communities to co-manage water resources through participatory irrigation, rural water development, and watershed conservation, while building capacity and improving governance to ensure resilient and sustainable water and climate systems."
     }
   },
   "milestones": {
