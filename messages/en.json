@@ -22,12 +22,11 @@
   },
   "vision": {
     "eyebrow": "Our Vision",
-    "title": "Socio-Hydro-Climate leadership for a resilient future",
-    "desc": "We enhance knowledge exchange, educate the next generation, coordinate interdisciplinary initiatives, and build bridges with partners.",
-    "point1": "Enhance exchange of ideas across disciplines.",
-    "point2": "Educate problem-solvers on water, climate, and equity.",
-    "point3": "Coordinate new programs, facilities, and services.",
-    "point4": "Build bridges with academic, public, and international partners."
+    "title": "Socio-Hydro-Climate leadership for resilience",
+    "desc": "Water Resources Engineering and Climate Center (WRECC) is committed to advancing scientific research, technological innovation, and policy integration to achieve sustainable water and climate resilience across regions.",
+ "point1": "Research, education, and capacity building. Future problem-solvers on integrated water, climate, and social equity issues. The exchange of ideas among scholars and trainees through a Socio-Hydro-Climate Engineering hub that integrates natural and social sciences, public health, design, engineering, and governance.",
+    "point2": "Innovation partnerships. Build collaborative networks among academia, government, industry, and civil society to translate research into real-world solutions.",
+    "point3": "Sustainable and inclusive development. Align all research and innovation with the Sustainable Development Goals (SDGs)."
   },
   "scope": {
     "eyebrow": "Research Scope",
