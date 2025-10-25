@@ -23,7 +23,7 @@ export default function Contact() {
           data-aos-delay="100"
         >
           <Mail className="h-5 w-5 text-emerald-700" />
-          <span>wrecc@ugm.mail.ac.id</span>
+          <span>wrecc@gmail.com</span>
         </a>
 
         <div
@@ -32,7 +32,7 @@ export default function Contact() {
           data-aos-delay="200"
         >
           <Phone className="h-5 w-5 text-emerald-700" />
-          <span>+62 8817412516</span>
+          <span>+6288 1741 2516 (Yunita)</span>
         </div>
 
         <div
@@ -41,7 +41,7 @@ export default function Contact() {
           data-aos-delay="300"
         >
           <Globe className="h-5 w-5 text-emerald-700" />
-          <span>wrecc.tp.ugm.ac.id</span>
+          <span>wrecc.id</span>
         </div>
       </div>
     </Section>
