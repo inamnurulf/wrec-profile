@@ -10,7 +10,7 @@ export default function Milestones() {
   const roadmap = [
     { year: "2026", text: t("milestones.item1") },
     { year: "2027", text: t("milestones.item2") },
-    { year: "2038", text: t("milestones.item3") },
+    { year: "2028", text: t("milestones.item3") },
     { year: "2030", text: t("milestones.item4") },
   ];
 
