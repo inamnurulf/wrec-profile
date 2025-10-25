@@ -51,12 +51,12 @@
   },
   "milestones": {
     "eyebrow": "Rencana & Tonggak Masa Depan",
-    "title": "Peta Jalan Menuju 2040",
+    "title": "Peta Jalan Menuju 2030",
     "desc": "Kami menetapkan tujuan jangka panjang untuk memperkuat riset adaptif iklim dan membangun dampak yang berkelanjutan.",
-    "item1": "Menyusun Peta Jalan Riset 5 Tahun untuk irigasi adaptif iklim, ketahanan banjir & kekeringan, proyeksi iklim, serta keterkaitan air-energi-pangan.",
-    "item2": "Meluncurkan program riset bersama tahunan, publikasi internasional, naskah kebijakan, seminar, dan lokakarya bersama mitra.",
-    "item3": "Memperluas kursus singkat dan pelatihan bagi pemerintah dan masyarakat untuk memperkuat kapasitas adaptasi air & iklim.",
-    "item4": "Mewujudkan integrasi penuh antara riset, pendidikan, dan pengabdian; menjadi pusat rujukan nasional & Asia-Pasifik."
+    "item1": "Mengembangkan Peta Jalan Riset 5 Tahun yang menargetkan irigasi adaptif iklim, ketahanan terhadap banjir dan kekeringan, model proyeksi iklim, serta keterkaitan air–energi–pangan.",
+    "item2": "Meluncurkan program riset bersama tahunan, publikasi internasional, naskah kebijakan, serta seminar dan lokakarya rutin bersama mitra.",
+    "item3": "Memperluas program pelatihan bagi pemerintah daerah dan pemangku kepentingan masyarakat untuk meningkatkan kapasitas dalam adaptasi air dan iklim.",
+    "item4": "Mewujudkan integrasi penuh antara riset, pendidikan, dan diseminasi kebijakan untuk menjadikan Pusat sebagai pusat rujukan nasional dan Asia-Pasifik dalam bidang Sosio–Hidro–Iklim."
   },
   "team": {
     "eyebrow": "Tim Kami",
@@ -183,7 +183,10 @@
       "soilSampling": "Pengambilan sampel tanah di area hutan.",
       "waterMonitoring": "Pencatatan kualitas air di lokasi.",
       "labAnalysis": "Pengukuran sampel tanah dan air di laboratorium.",
-      "fieldTeam": "Tim lapangan saat persiapan lahan di lokasi riset."
+      "fieldTeam": "Tim lapangan saat persiapan lahan di lokasi riset.",
+       "irrigationChannel": "Sistem saluran irigasi tradisional yang mendukung lahan sawah setempat.",
+      "fieldSurvey": "Survei lapangan dan penilaian vegetasi yang dilakukan oleh tim riset.",
+      "weatherStation": "Stasiun cuaca otomatis yang dipasang untuk pemantauan mikroklimat."
     }
   },
   "ArticleCard": {

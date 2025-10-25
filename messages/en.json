@@ -51,12 +51,12 @@
   },
   "milestones": {
     "eyebrow": "Future Plans & Milestones",
-    "title": "Roadmap to 2040",
+    "title": "Roadmap to 2030",
     "desc": "We are setting long-term goals to strengthen climate-adaptive research and build lasting impact.",
-    "item1": "Establish a 5-Year Research Roadmap for climate-adaptive irrigation, flood & drought resilience, climate projections, and the water-energy-food nexus.",
-    "item2": "Launch annual joint research programs, international publications, policy briefs, seminars, and workshops with partners.",
-    "item3": "Expand short courses and training for governments and communities to strengthen water & climate adaptation capacity.",
-    "item4": "Achieve full integration of research, education, and outreach; become a national & Asia-Pacific reference hub."
+    "item1": "Develop a 5-Year Research Roadmap targeting climate-adaptive irrigation, flood and drought resilience, climate projection models, and the water–energy–food nexus.",
+    "item2": "Launch annual joint research programs, publish internationally, create policy briefs, and hold regular seminars and workshops with partners.",
+    "item3": "Expand training programs for local governments and community stakeholders to enhance capacity in water and climate adaptation.",
+    "item4": "Achieve complete integration of research, education, and policy outreach to establish the Center as a national and Asia-Pacific reference hub for Socio–Hydro–Climate Engineering."
   },
   "team": {
     "eyebrow": "Meet Our Team",
@@ -182,7 +182,10 @@
       "soilSampling": "Collecting soil samples in forest terrain.",
       "waterMonitoring": "Recording water quality data on site.",
       "labAnalysis": "Measuring soil and water samples in the lab.",
-      "fieldTeam": "Field team during soil preparation at the research site."
+      "fieldTeam": "Field team during soil preparation at the research site.",
+      "irrigationChannel": "Traditional irrigation canal system supporting local rice fields.",
+      "fieldSurvey": "Field survey and vegetation assessment conducted by the research team.",
+      "weatherStation": "Automatic weather station installed for microclimate monitoring."
     }
   },
   "ArticleCard": {

@@ -57,6 +57,27 @@ export default function OurGallery({ id = "gallery", className }) {
       width: 1600,
       height: 1067,
     },
+    {
+      src: "/images/image-6.jpg",
+      alt: t("captions.weatherStation"),
+      caption: t("captions.weatherStation"),
+      width: 1600,
+      height: 1067,
+    },
+    {
+      src: "/images/image-7.jpg",
+      alt: t("captions.fieldSurvey"),
+      caption: t("captions.fieldSurvey"),
+      width: 1600,
+      height: 1067,
+    },
+    {
+      src: "/images/image-8.jpg",
+      alt: t("captions.irrigationChannel"),
+      caption: t("captions.irrigationChannel"),
+      width: 1600,
+      height: 1067,
+    },
   ];
 
   return (
@@ -68,7 +89,10 @@ export default function OurGallery({ id = "gallery", className }) {
       )}
       aria-label={t("title")}
     >
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8" data-aos="fade-up">
+      <div
+        className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8"
+        data-aos="fade-up"
+      >
         <header className="mx-auto max-w-2xl text-center">
           <Pill>WRECC</Pill>
           <h2 className="mt-3  tracking-tight text-2xl sm:text-3xl md:text-4xl font-bold">
@@ -79,11 +103,22 @@ export default function OurGallery({ id = "gallery", className }) {
 
         <div className="mt-10">
           <Swiper
-            modules={[Navigation, Pagination, Autoplay, Keyboard, A11y, FreeMode]}
+            modules={[
+              Navigation,
+              Pagination,
+              Autoplay,
+              Keyboard,
+              A11y,
+              FreeMode,
+            ]}
             loop
             onSwiper={(sw) => (swiperRef.current = sw)}
             onSlideChange={(sw) => setActive(sw.realIndex)}
-            autoplay={{ delay: 2600, disableOnInteraction: false, pauseOnMouseEnter: true }}
+            autoplay={{
+              delay: 2600,
+              disableOnInteraction: false,
+              pauseOnMouseEnter: true,
+            }}
             speed={650}
             keyboard={{ enabled: true }}
             freeMode={{ enabled: false }}
@@ -91,7 +126,11 @@ export default function OurGallery({ id = "gallery", className }) {
             slidesPerView={1.05}
             centeredSlides
             breakpoints={{
-              640: { slidesPerView: 1.2, spaceBetween: 18, centeredSlides: true },
+              640: {
+                slidesPerView: 1.2,
+                spaceBetween: 18,
+                centeredSlides: true,
+              },
               768: { slidesPerView: 1.6, spaceBetween: 20 },
               1024: { slidesPerView: 2.2, spaceBetween: 22 },
               1280: { slidesPerView: 3, spaceBetween: 24 },
@@ -134,7 +173,8 @@ export default function OurGallery({ id = "gallery", className }) {
                 type="button"
                 onClick={() => swiperRef.current?.slideToLoop(i)}
                 onKeyDown={(e) => {
-                  if (e.key === "Enter" || e.key === " ") swiperRef.current?.slideToLoop(i);
+                  if (e.key === "Enter" || e.key === " ")
+                    swiperRef.current?.slideToLoop(i);
                 }}
                 aria-label={`Go to slide ${i + 1}: ${img.alt}`}
                 className={classNames(
